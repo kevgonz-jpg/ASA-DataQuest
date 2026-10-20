@@ -1,0 +1,28 @@
+# === Data (heavy files) ===
+data/bronze/*.gz
+data/silver/
+data/gold/
+
+# === Generated outputs ===
+outputs/
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+.env
+
+# === IDE ===
+.vscode/
+.idea/
+*.swp
+*~
+
+# === OS ===
+Thumbs.db
+.DS_Store
+~$*

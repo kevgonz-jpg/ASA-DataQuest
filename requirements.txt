@@ -1,0 +1,27 @@
+# === ASA DataQuest 2026 — Dependencies ===
+# Generated: 2026-10-10
+# Python >= 3.11
+
+# Core data
+pandas>=3.0
+numpy>=2.3
+pyarrow>=18.0          # parquet I/O
+openpyxl>=3.1          # excel I/O
+
+# Visualization
+matplotlib>=3.11
+seaborn>=0.13
+
+# Statistics & ML
+scipy>=1.17
+scikit-learn>=1.9
+# statsmodels>=0.14    # Uncomment when needed (Fase 5)
+# tslearn>=0.6         # Uncomment when needed (DTW, Fase 5)
+# ruptures>=1.1        # Uncomment when needed (change-point, Fase 5)
+
+# Interactive viz (Fase 6)
+# plotly>=6.0
+# joypy>=0.2
+
+# Jupyter
+ipykernel
