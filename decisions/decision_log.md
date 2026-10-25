@@ -88,4 +88,17 @@
 
 ---
 
+### Notebook 03 — Filtro de colinealidad extrema (Spearman |rho| > 0.90) para el Indice Compuesto
+
+- **Notebook**: [03_eda_bivariate.ipynb](../notebooks/03_eda_bivariate.ipynb)
+- **Contexto**: El calculo de un indice multivariado mediante PCA o ponderaciones objetivas se distorsiona ante redundancias severas de variables que miden el mismo fenomeno demografico subyacente.
+- **Decision**: 
+    1. **Conservar `TFR` y descartar `CBR`** ($\rho = +0.98$): `TFR` es la medida canonica independiente de la estructura etaria, mientras que `CBR` esta sesgada por la juventud o envejecimiento de la poblacion.
+    2. **Conservar `IMR` y descartar `Q5`** ($\rho = +1.00$): La mortalidad en menores de 1 ano y menores de 5 anos tienen correlacion casi perfecta. Se conserva `IMR` por ser el indicador prioritario de salud publica en los ODS.
+    3. **Preservar `CNMR` como dimension autonoma**: Se evidencio que la tasa neta de migracion tiene correlaciones minimas con las variables vegetativas ($|\rho| < 0.20$), confirmando su papel como vector independiente y amortiguador demografico.
+- **Justificacion**: Garantiza parsimonia y estabilidad numerica en la descomposicion factorial (Notebook 04), previniendo sobreponderacion artificial del pilar reproductivo o de mortalidad infantil.
+- **Alternativas descartadas**: Conservar todas las variables candidatas sin filtrado (infla la varianza del primer componente con redundancias); usar correlacion de Pearson (invalida por la asimetria y colas pesadas de las tasas).
+
+---
+
 *Agrega nuevas decisiones al final, manteniendo el formato.*
