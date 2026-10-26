@@ -88,4 +88,42 @@
 
 ---
 
+### Notebook 03 — Filtro de colinealidad extrema (Spearman |rho| > 0.90) para el Indice Compuesto
+
+- **Notebook**: [03_eda_bivariate.ipynb](../notebooks/03_eda_bivariate.ipynb)
+- **Contexto**: El calculo de un indice multivariado mediante PCA o ponderaciones objetivas se distorsiona ante redundancias severas de variables que miden el mismo fenomeno demografico subyacente.
+- **Decision**: 
+    1. **Conservar `TFR` y descartar `CBR`** ($\rho = +0.98$): `TFR` es la medida canonica independiente de la estructura etaria, mientras que `CBR` esta sesgada por la juventud o envejecimiento de la poblacion.
+    2. **Conservar `IMR` y descartar `Q5`** ($\rho = +1.00$): La mortalidad en menores de 1 ano y menores de 5 anos tienen correlacion casi perfecta. Se conserva `IMR` por ser el indicador prioritario de salud publica en los ODS.
+    3. **Preservar `CNMR` como dimension autonoma**: Se evidencio que la tasa neta de migracion tiene correlaciones minimas con las variables vegetativas ($|\rho| < 0.20$), confirmando su papel como vector independiente y amortiguador demografico.
+- **Justificacion**: Garantiza parsimonia y estabilidad numerica en la descomposicion factorial (Notebook 04), previniendo sobreponderacion artificial del pilar reproductivo o de mortalidad infantil.
+- **Alternativas descartadas**: Conservar todas las variables candidatas sin filtrado (infla la varianza del primer componente con redundancias); usar correlacion de Pearson (invalida por la asimetria y colas pesadas de las tasas).
+
+---
+
+### Notebook 04 — Construccion del Indice de Transicion Demografica (DTI) via PCA y Min-Max [0, 100]
+
+- **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
+- **Contexto**: Responder a la Pregunta Guia #5 requeria sintetizar los indicadores depurados en una metrica unica, objetiva y reproducible, evitando ponderaciones ad hoc o arbitrarias.
+- **Decision**: 
+    1. **Extraer ponderaciones mediante PCA**: El primer componente ($PC1$) explica el **54.58% de la varianza total** de los 7 indicadores seleccionados. Sus cargas agrupan naturalmente el eje clásico de supervivencia (`LEx`, `MedianAgePop`) frente a mortalidad y fecundidad pre-transición (`IMR`, `TFR`).
+    2. **Inversion de signo y normalizacion Min-Max [0, 100]**: Se invirtio el signo de $PC1$ ($\text{DTI}^* = -PC1$) para que mayores puntuaciones reflejen mayor madurez en salud y supervivencia, escalando el rango a $[0, 100]$.
+    3. **Preservar $PC2$ (25.12% de varianza)**: Se mantuvo como eje ortogonal de Dinámica Externa / Migración (`CNMR`, `PopGrowthRate`) para construir el espacio bidimensional de regímenes demográficos.
+- **Justificacion**: Garantiza total fundamentación matemática (79.7% de varianza acumulada en 2 componentes) y máxima interpretabilidad para los evaluadores y formuladores de políticas.
+- **Alternativas descartadas**: Promedio aritmético no ponderado (asume varianzas iguales); fijación subjetiva de pesos (sesgo ético).
+
+### Notebook 04 — Segmentacion de Regimenes Demograficos con K-Means (K = 4)
+
+- **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
+- **Contexto**: Responder a la Pregunta Guia #6 requeria agrupar a los paises en perfiles demograficos distintivos segun como interactuan sus dimensiones conjuntas.
+- **Decision**: Seleccionar $K=4$ regímenes globales mediante análisis conjunto de inercia (codo) y coeficiente de silueta:
+    - *Regimen 1: Transicion Incipiente* (África subsahariana: $TFR > 4.2$, edad mediana $<20$ años).
+    - *Regimen 2: Transicion Media / Emergente* (América Latina y Asia emergente: fertilidad cercana a reemplazo, longevidad moderada).
+    - *Regimen 3: Alta Inmigracion / Expansion Externa* (Economías del Golfo y receptores netos con $CNMR > 10$).
+    - *Regimen 4: Post-Transicion Avanzada / Envejecida* (Europa y Asia oriental: $LEx > 80$ años, $TFR < 1.4$, edad mediana $>42$ años).
+- **Justificacion**: $K=4$ ofrece la mejor separabilidad cualitativa y cuantitativa, capturando tanto los estadios de transición clásica como la anomalía contemporánea de flujos migratorios externos.
+- **Alternativas descartadas**: $K=2$ (excesivamente simplista, borra a las economías emergentes); $K \ge 6$ (fragmenta micro-variaciones sin sustento macroeconómico).
+
+---
+
 *Agrega nuevas decisiones al final, manteniendo el formato.*

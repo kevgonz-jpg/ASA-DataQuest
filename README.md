@@ -64,4 +64,4 @@ MIT — Ver `LICENSE`
 
 ## 👤 Autor
 
-[Tu nombre] — Universidad Nacional de Colombia, Sede Medellín
+Andres Pinto, Yuliana Guzman, Kevin Gonzalez— Universidad Nacional de Colombia, Sede Medellín
