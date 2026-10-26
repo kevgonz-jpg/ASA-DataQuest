@@ -101,4 +101,29 @@
 
 ---
 
+### Notebook 04 — Construccion del Indice de Transicion Demografica (DTI) via PCA y Min-Max [0, 100]
+
+- **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
+- **Contexto**: Responder a la Pregunta Guia #5 requeria sintetizar los indicadores depurados en una metrica unica, objetiva y reproducible, evitando ponderaciones ad hoc o arbitrarias.
+- **Decision**: 
+    1. **Extraer ponderaciones mediante PCA**: El primer componente ($PC1$) explica el **54.58% de la varianza total** de los 7 indicadores seleccionados. Sus cargas agrupan naturalmente el eje clásico de supervivencia (`LEx`, `MedianAgePop`) frente a mortalidad y fecundidad pre-transición (`IMR`, `TFR`).
+    2. **Inversion de signo y normalizacion Min-Max [0, 100]**: Se invirtio el signo de $PC1$ ($\text{DTI}^* = -PC1$) para que mayores puntuaciones reflejen mayor madurez en salud y supervivencia, escalando el rango a $[0, 100]$.
+    3. **Preservar $PC2$ (25.12% de varianza)**: Se mantuvo como eje ortogonal de Dinámica Externa / Migración (`CNMR`, `PopGrowthRate`) para construir el espacio bidimensional de regímenes demográficos.
+- **Justificacion**: Garantiza total fundamentación matemática (79.7% de varianza acumulada en 2 componentes) y máxima interpretabilidad para los evaluadores y formuladores de políticas.
+- **Alternativas descartadas**: Promedio aritmético no ponderado (asume varianzas iguales); fijación subjetiva de pesos (sesgo ético).
+
+### Notebook 04 — Segmentacion de Regimenes Demograficos con K-Means (K = 4)
+
+- **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
+- **Contexto**: Responder a la Pregunta Guia #6 requeria agrupar a los paises en perfiles demograficos distintivos segun como interactuan sus dimensiones conjuntas.
+- **Decision**: Seleccionar $K=4$ regímenes globales mediante análisis conjunto de inercia (codo) y coeficiente de silueta:
+    - *Regimen 1: Transicion Incipiente* (África subsahariana: $TFR > 4.2$, edad mediana $<20$ años).
+    - *Regimen 2: Transicion Media / Emergente* (América Latina y Asia emergente: fertilidad cercana a reemplazo, longevidad moderada).
+    - *Regimen 3: Alta Inmigracion / Expansion Externa* (Economías del Golfo y receptores netos con $CNMR > 10$).
+    - *Regimen 4: Post-Transicion Avanzada / Envejecida* (Europa y Asia oriental: $LEx > 80$ años, $TFR < 1.4$, edad mediana $>42$ años).
+- **Justificacion**: $K=4$ ofrece la mejor separabilidad cualitativa y cuantitativa, capturando tanto los estadios de transición clásica como la anomalía contemporánea de flujos migratorios externos.
+- **Alternativas descartadas**: $K=2$ (excesivamente simplista, borra a las economías emergentes); $K \ge 6$ (fragmenta micro-variaciones sin sustento macroeconómico).
+
+---
+
 *Agrega nuevas decisiones al final, manteniendo el formato.*
