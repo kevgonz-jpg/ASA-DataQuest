@@ -126,4 +126,32 @@
 
 ---
 
+### Notebook 05 — Agrupamiento Morfologico de Trayectorias con Dynamic Time Warping (DTW) y Ward Linkage
+
+- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
+- **Contexto**: Evaluar la hipótesis de convergencia requería comparar cómo evolucionan las series demográficas en el tiempo, considerando que las naciones no inician su transición simultáneamente.
+- **Decision**: 
+    1. **Adoptar DTW sobre la distancia Euclidiana**: Emplear alineamiento elástico temporal ($L_1$-norm) sobre la trayectoria longitudinal del $DTI$ (1950–2023) para agrupar países por la *forma y aceleración* de su transición demográfica, independientemente del rezago cronológico.
+    2. **Identificar 4 Macro-Arquetipos**: Transición Precoz y Madura (Europa/Norteamérica), Despegue Intermedio (Latinoamérica/Norte de África), Transición Acelerada/Salto del Este Asiático (Corea/China/Singapur) y Transición Tardía/Inercial (África Subsahariana).
+- **Justificacion**: La distancia euclidiana distorsiona la similitud al penalizar desfases de décadas. DTW demuestra que el Este Asiático replicó la transición europea pero a una velocidad 3 veces superior.
+- **Alternativas descartadas**: Distancia euclidiana año a año (sesga por timing); comparar únicamente los años extremos 1950 y 2023 (omite la dinámica intra-periodo).
+
+### Notebook 05 — Deteccion de Quiebres Estructurales (Change-Point Detection con PELT)
+
+- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
+- **Contexto**: Determinar si la transición es un proceso determinista suave o si está expuesta a quiebres estructurales provocados por shocks exógenos.
+- **Decision**: Aplicar el algoritmo PELT (Pruned Exact Linear Time) con costo kernel $L_2$ sobre series de países con eventos críticos documentados (Ruanda 1994, colapso soviético 1991, China 1979).
+- **Justificacion**: Proporciona evidencia formal de que los shocks geopolíticos y sanitarios provocan desviaciones no estacionarias que reconfiguran permanentemente las sendas de transición demográfica.
+- **Alternativas descartadas**: Inspección visual ad hoc; filtros lineales estándar tipo Hodrick-Prescott (suavizan artificialmente quiebres reales).
+
+### Notebook 05 — Evaluacion Econometrica: La Falacia de la Reversion Migratoria
+
+- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
+- **Contexto**: Abordar la Pregunta Guía #4 sobre si los flujos migratorios netos pueden revertir o solucionar el envejecimiento poblacional en regímenes sub-reemplazo ($TFR < 2.1$).
+- **Decision**: Estimar un modelo de regresión de panel con errores estándar robustos a heterocedasticidad (HC1) del cambio anual en edad mediana ($\Delta \text{MedianAgePop}$) en función de $\text{CNMR}$.
+- **Justificacion**: Se comprobó un efecto de amortiguación estadísticamente significativo ($\beta = -0.0053$, $p < 0.001$), pero de magnitud insuficiente: el envejecimiento intrínseco ($+0.53$ años/año) supera con creces el efecto compensador de la migración practicable.
+- **Alternativas descartadas**: Afirmar cualitativamente que la migración "rejuvenece" a las poblaciones sin sustento paramétrico.
+
+---
+
 *Agrega nuevas decisiones al final, manteniendo el formato.*
