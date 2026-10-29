@@ -86,6 +86,108 @@
 - **Justificacion**: Prevenir el descarte prematuro o arbitrario de variables en la capa de datos. Cada exclusion debe sustentarse en evidencia empirica y quedar registrada como decision metodologica justificable.
 - **Alternativas descartadas**: Filtrar columnas a priori en la capa Silver sin sustento cuantitativo previo.
 
+### Notebook 02 / EDA — Normalizacion robusta y retencion de valores atipicos historicos
+
+- **Notebook**: [02_eda_univariate.ipynb](../notebooks/02_eda_univariate.ipynb)
+- **Contexto**: Las variables candidatas rechazan la normalidad estadistica (Shapiro-Wilk $p < 0.001$) y presentan asimetrias severas (ej. `IMR` asimetria > +2.0, `TFR` > +1.0). Asimismo, existen eventos de mortalidad extrema (Camboya 1977-1979, Ruanda 1994) y fecundidades ultrabajas (Corea del Sur 2023).
+- **Decision**: Descartar estandarizacion clasica Z-score (media y desviacion estandar). Retener los outliers historicos por tratarse de fenomenos veridicos y aplicar metodos de escalamiento robustos (transformacion logaritmica en `IMR`/`TFR` o normalizacion Min-Max sobre percentiles 1-99).
+- **Justificacion**: El Z-score clasico distorsiona variables asimetricas con colas pesadas. Preservar los eventos historicos mantiene la validez del storytelling sin deformar la escala del indice.
+- **Alternativas descartadas**: Eliminar paises con valores atipicos; asumir distribuciones normales.
+
+### Notebook 03 / EDA — Filtro de colinealidad bivariada y seleccion de pilares
+
+- **Notebook**: [03_eda_bivariate.ipynb](../notebooks/03_eda_bivariate.ipynb)
+- **Contexto**: Varios indicadores demograficos presentan redundancia severa ($|\rho| > 0.90$), lo que sobredimensionaria ciertos pilares dentro del indice compuesto.
+- **Decision**: Reducir dimensionalidad aplicando un filtro de colinealidad de Spearman:
+    1. **Fecundidad**: Conservar `TFR` y excluir `CBR` ($\rho = 0.98$). `TFR` es independiente de la piramide de edades.
+    2. **Mortalidad Temprana**: Conservar `IMR` y excluir `Q5` ($\rho = 1.00$). `IMR` es la metrica canonica internacional.
+    3. **Longevidad y Vejez**: Conservar `LEx` y evaluar `LE60` para capturar supervivencia global frente a vejez.
+    4. **Estructura y Migracion**: Conservar `MedianAgePop` (divergencia regional clave, $\rho = 0.78$ con `LEx`) y `CNMR` (dimension migratoria ortogonal, $|\rho| < 0.20$).
+    5. **Equidad**: Conservar `GenderGapLE` como dimension directa de brecha de genero en supervivencia.
+- **Justificacion**: Elimina el doble conteo de varianza en el PCA/indice y asegura interpretabilidad de cada dimension del perfil demografico.
+- **Alternativas descartadas**: Incluir todos los indicadores en el PCA sin descarte previo; utilizar filtros lineales de Pearson sobre datos con relaciones no lineales.
+
+### Notebook 04 / EDA Multivariado -- Escalamiento robusto con transformacion logaritmica
+
+- **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
+- **Contexto**: Las variables `IMR` (asimetria > +2.0) y `TFR` (asimetria > +1.0) presentan distribuciones severamente asimétricas en el corte 2023 y ninguna variable pasa el test de normalidad (Shapiro-Wilk $p < 0.001$).
+- **Decision**: Aplicar transformacion logaritmica a `IMR` (`log(IMR+1)`) y `TFR` (`log(TFR)`) previo al escalamiento. Usar `RobustScaler` (mediana y rango intercuartilico) en lugar de `StandardScaler`.
+- **Justificacion**: La transformacion log reduce la asimetria sin eliminar la varianza informativa. `RobustScaler` no distorsiona la posicion de los outliers historicos retenidos en el Notebook 02.
+- **Alternativas descartadas**: `StandardScaler` (asume normalidad); Min-Max sin transformacion (sensible a extremos); no transformar (sesga PC1).
+
+### Notebook 04 / EDA Multivariado -- Ponderacion endogena del Indice Compuesto Demografico (ICD)
+
+- **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
+- **Contexto**: La construccion de un indice compuesto requiere asignar pesos a los indicadores. Las opciones incluyen pesos iguales (arbitrario), pesos de experto (subjetivo) o pesos derivados de PCA (endogeno/basado en datos).
+- **Decision**: Ponderar las componentes principales retenidas (>= 80% varianza acumulada) por su proporcion de varianza explicada y normalizar el indice a escala 0-100.
+- **Justificacion**: La ponderacion endogena elimina decisiones subjetivas sobre la importancia relativa de cada pilar. El PCA asigna mayor peso a las dimensiones con mayor dispersion real entre paises, lo que maximiza el poder discriminante del indice.
+- **Alternativas descartadas**: Pesos iguales (ignora la estructura de covarianza); pesos de experto (no reproducibles).
+
+### Notebook 04 / EDA Multivariado -- Sustitucion de Min-Max ingenuo por Estandarizacion Robusta de Percentiles (Winsorizacion P2.5 - P97.5) en el ICD
+
+- **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
+- **Contexto**: El calculo inicial del ICD acotaba el indice crudo (`raw_index`) a escala $[0, 100]$ mediante reescalamiento Min-Max clasico ($\frac{x - x_{\min}}{x_{\max} - x_{\min}}$). La auditoria de distribucion revelo que `raw_index` rechaza categoricamente la normalidad (Jarque-Bera $p < 10^{-100}$), presentando una distribucion leptocurtica con colas pesadas (curtosis $> 9.4$) y asimetria pronunciada causada por choques migratorios y microterritorios insulares. El Min-Max ingenuo basa su denominador exclusivamente en los estadisticos de orden extremos $X_{(1)}$ y $X_{(n)}$, colapsando la varianza util del 95% central de los paises en una franja artificialmente estrecha y anulando el poder discriminante del indice.
+- **Decision**:
+    1. Sustituir el Min-Max ingenuo por una **Estandarizacion Robusta con Winsorizacion de percentiles ($P_{2.5} - P_{97.5}$)** siguiendo las directrices de la OCDE/JRC (*Handbook on Constructing Composite Indicators*):
+       $$\text{ICD}_i = 100 \times \operatorname{clip}\left(\frac{\text{raw}_i - P_{2.5}}{P_{97.5} - P_{2.5}}, 0, 1\right)$$
+    2. Alinear la orientacion de cada componente principal retenida con el vector de longevidad (`LEx`), asegurando validez de constructo en la agregacion lineal ponderada.
+- **Justificacion**: 
+    1. *Preservacion de la metrica cardinal*: A diferencia de transformaciones sigmoides no lineales o rangos percentiles (ECDF), la Winsorizacion lineal mantiene inalterada la distancia proporcional entre naciones a lo largo del 95% central del espectro demografico (una diferencia de 1 punto refleja exactamente la misma magnitud relativa).
+    2. *Inmunidad ante atipicos de cola*: Acota el impacto de anomalias extremas transitorias o de microestados en los extremos absolutos (0 y 100), impidiendo que distorsionen el benchmark global.
+    3. *Estandar internacional*: Cumple rigurosamente las pautas metodologicas recomendadas por la OCDE y Naciones Unidas para indices sinteticos con variables asimetricas.
+- **Alternativas descartadas**:
+    - *Min-Max ingenuo global*: Descartado por hiper-sensibilidad a outliers y perdida masiva de resolucion analitica en el cuerpo central de la distribucion.
+    - *Transformacion Sigmoide Robusta*: Descartada porque introduce no-linealidad en la escala, alterando la interpretacion de distancias fijas en los extremos.
+    - *Percentile Rank / ECDF*: Descartado porque fuerza una distribucion uniforme artificial, destruyendo las distancias cuantitativas reales entre paises contiguos.
+
+### Notebook 04 / EDA Multivariado -- Determinacion de regimenes demograficos por clustering
+
+- **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
+- **Contexto**: Identificar regimenes demograficos estructuralmente distintos permite segmentar los analisis del Notebook 05 y validar la coherencia del ICD.
+- **Decision**: Aplicar K-Means sobre los scores de PCA retenidos, seleccionando K por maximo coeficiente de silueta en el rango [2, 8].
+- **Justificacion**: K-Means es interpretable, escalable y adecuado para clusters de forma convexa. El coeficiente de silueta cuantifica la separabilidad y cohesion de los grupos sin requerir supuestos distribucionales.
+- **Alternativas descartadas**: Clustering jerarquico (mas costoso, menos interpretable para n > 200); DBSCAN (sensible a parametros epsilon/min_samples en dimensiones altas).
+
+### Notebook 05 / Statistical Insight -- Evaluacion morfologica de trayectorias con DTW bivariado
+
+- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
+- **Contexto**: Evaluar si todos los paises recorren la misma trayectoria en el espacio de fase $(TFR, LEx)$ requiere comparar series temporales sin penalizar desfasajes cronologicos.
+- **Decision**: Implementar Dynamic Time Warping (DTW) bivariado sobre trayectorias quinquenales normalizadas en escala $[0, 1]$, seguido de clustering jerarquico con metodo `complete linkage`.
+- **Justificacion**: DTW mide la disimilaridad morfologica independientemente del anio de inicio de la transicion. El muestreo quinquenal reduce el costo computacional de 500s a 24s para las 27,966 parejas sin perder fidelidad analitica. Complete linkage evita el efecto de encadenamiento espurio (*chaining*) propio de single linkage.
+- **Alternativas descartadas**: Distancia euclidiana directa (penaliza calendarios distintos como si fueran trayectorias distintas); correlacion cruzada simple (asume retardos lineales uniformes).
+
+### Notebook 05 / Statistical Insight -- Deteccion de quiebres estructurales por regresion segmentada
+
+- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
+- **Contexto**: Determinar si las transiciones son suaves o estan pautadas por perturbaciones no lineales y aceleraciones exogenas.
+- **Decision**: Implementar regresion lineal segmentada en dos tramos (metodologia Chow / Bai-Perron con barrido exhaustivo de puntos de corte con segmento minimo $h=8$) para identificar el anio de maxima reduccion de varianza residual en $TFR$ y $LEx$.
+- **Justificacion**: Permite datar formalmente las discontinuidades macroestructurales (reformas de politicas de poblacion, shocks epidemicos, guerras o colapsos geopoliticos) con fundamento estadistico basado en el estadistico $F$.
+- **Alternativas descartadas**: CUSUM recursivo generico sin fechado puntual optimo; deteccion puramente heuristica o visual.
+
+### Notebook 05 / Statistical Insight -- Experimento contrafactual de compensacion migratoria
+
+- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
+- **Contexto**: Cuantificar si la migracion internacional compensa el envejecimiento poblacional en las economias avanzadas receptoras.
+- **Decision**: Comparar la variante oficial `Zero migration` (fronteras netas neutras) con la variante `Medium` a los horizontes 2050 y 2100 para evaluar la variacion neta en edad mediana ($\Delta \text{MedianAge}$) y tamano de poblacion.
+- **Justificacion**: Utiliza un contrafactual oficial estandarizado de Naciones Unidas que aisla exclusivamente el componente migratorio manteniendo constantes los supuestos de fertilidad y mortalidad.
+- **Alternativas descartadas**: Regresion ecologica cross-section entre migracion y edad promedio (sujeta a confusion endogena y causalidad reversa); modelos ad-hoc sin base de proyeccion WPP.
+
+### Notebook 06 / Visualizaciones Finales -- Sistema grafico bajo principios de Tufte y accesibilidad
+
+- **Notebook**: [06_visualizations.ipynb](../notebooks/06_visualizations.ipynb)
+- **Contexto**: Las figuras finales deben cumplir con estandares competitivos para concurso y rigor de publicacion cientifica.
+- **Decision**: Maximizar el data-ink ratio eliminando marcos y elementos ornamentales; utilizar paletas perceptualmente uniformes y accesibles para daltonismo (`viridis`, `Blues`, `RdBu_r`); exportar estricto a 300 DPI con `bbox_inches='tight'`.
+- **Justificacion**: Garantiza legibilidad universal, contraste optimizado para impresion y reproduccion digital, y foco directo en los patrones empiricos.
+- **Alternativas descartadas**: Paletas por defecto no contrastadas; visualizaciones 3D con oclusion perceptiva.
+
+### Notebook 07 / Etica y Reporte Final -- Marco etico ASA y contextualizacion no alarmista
+
+- **Notebook**: [07_ethics_and_report.ipynb](../notebooks/07_ethics_and_report.ipynb)
+- **Contexto**: Las estadisticas demograficas de fertilidad, mortalidad y migracion conllevan riesgos de instrumentalizacion politica, estigmatizacion territorial y discursos coercitivos.
+- **Decision**: Adoptar explicitamente las *ASA Ethical Guidelines for Statistical Practice* como marco de control de calidad; contextualizar las proyecciones de envejecimiento y descenso de fecundidad sin apelar a retoricas de panico (\"declive poblacional\" o \"invierno demografico\"); fundamentar las recomendaciones en derechos reproductivos, salud universal y equidad distributiva.
+- **Justificacion**: Garantiza que los hallazgos cientificos no sean descontextualizados y cumplan con la responsabilidad social y etica exigida en la practica estadistica profesional.
+- **Alternativas descartadas**: Tratamiento puramente actuarial desprovisto de marco etico; presentacion de proyecciones como certezas deterministas sin explicitacion de incertidumbre.
+
 ---
 
 *Agrega nuevas decisiones al final, manteniendo el formato.*

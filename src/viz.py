@@ -45,7 +45,7 @@ def save_figure(fig, name: str, subdir: str = "eda"):
     base.mkdir(parents=True, exist_ok=True)
     path = base / f"{name}.{FIG_FORMAT}"
     fig.savefig(path, dpi=FIG_DPI, bbox_inches='tight', facecolor='white')
-    print(f"  💾 Saved: {path.relative_to(path.parents[3])}")
+    print(f"  Saved: {path.relative_to(path.parents[3])}")
 
 
 # TODO: Agregar funciones de visualización a medida que las necesites.
