@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASA DataQuest 2026 — Transicion Demografica Global</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--o:#F25A05;--g:linear-gradient(90deg,#F25A05,#FFB8A5);--glow:#A33A00}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;overflow:hidden;font-family:Poppins,'Segoe UI',Arial,sans-serif;color:#fff}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1456px;height:819px;flex:none;transform-origin:center center;background:#000;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;background:#000;overflow:hidden}
+.slide.on{display:block}
+.slide *{position:absolute}
+.slide .flow{position:static}
+.glow{border-radius:50%;filter:blur(70px);background:radial-gradient(circle,var(--glow) 0%,rgba(163,58,0,0) 70%)}
+.card{border:1.5px solid #f4f4f4;border-radius:50px;background:linear-gradient(135deg,#2a2a2a,#111)}
+.g{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.sub{font-weight:700;font-size:36px;letter-spacing:-1.5px;line-height:44px;white-space:nowrap}
+.h{font-weight:800;letter-spacing:-3px;color:#fffff8}
+.p{font-size:21px;line-height:29.5px;text-align:justify;font-weight:400;letter-spacing:.3px}
+.img{border:1.5px solid #f4f4f4;border-radius:40px;overflow:hidden;background:linear-gradient(135deg,#555,#222) center/contain no-repeat;background-color:#111}
+.img::after{content:"Visualizacion";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#ffffff66}
+.img.has::after{display:none}
+.btn{width:480px;height:106px;border:1.5px solid #f4f4f4;border-radius:53px;background:linear-gradient(135deg,#222,#0f0f0f);cursor:pointer;color:#fff;font-family:inherit}
+.btn span{position:absolute;left:76px;top:0;height:100%;display:flex;align-items:center;font-size:36px;font-weight:300;letter-spacing:-1px;white-space:nowrap}
+.btn i{right:0;top:0;width:122px;height:100%;border-radius:0 53px 53px 0;background:linear-gradient(135deg,#444,#1a1a1a);display:flex;align-items:center;justify-content:center;border-left:1px solid #333}
+.btn i svg{position:static}
+.logo-bar{left:62px;top:42px;width:11px;height:48px;border-radius:6px;background:var(--o)}
+.logo{left:87px;top:44px;font-weight:700;font-size:19px;line-height:22px;letter-spacing:-0.5px;width:240px}
+.nav{top:43px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:400;color:#fff;cursor:pointer;text-decoration:none;letter-spacing:.3px}
+.nav.act{background:var(--o);font-weight:700}
+.hint{position:fixed;right:14px;bottom:10px;font-size:12px;color:#888;z-index:9}
+.badge{position:absolute;padding:6px 16px;border-radius:20px;border:1px solid #F25A05;background:rgba(242,90,5,0.15);color:#FFB8A5;font-size:14px;font-weight:600;letter-spacing:1px}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- 1 HOME -->
+<section class="slide" data-nav="0">
+  <div class="glow" style="left:-150px;top:-100px;width:640px;height:640px"></div>
+  <div class="card" style="left:88px;top:165px;width:1267px;height:571px"></div>
+  <div style="left:156px;top:218px;width:1180px;font-size:62px;line-height:82px;font-weight:400;letter-spacing:-1.5px">Sintetizando la <span class="g">transicion demografica</span> global |<br><b style="font-weight:700">ASA DataQuest 2026</b></div>
+  <div style="left:156px;top:425px;width:670px;height:1.5px;background:#ccc"></div>
+  <p class="p" style="left:156px;top:475px;width:610px">Analisis multidimensional de las trayectorias poblacionales (1950–2023) basado en UN World Population Prospects. Construccion del Indice Compuesto Demografico (ICD), clasificacion no supervisada de regimenes y evaluacion de convergencia temporal sin supuestos parametricos restrictivos.</p>
+  <button class="btn next" style="left:826px;top:587px"><span>SIGUIENTE</span><i></i></button>
+</section>
+
+<!-- 2 ABOUT / OBJETIVOS -->
+<section class="slide" data-nav="1">
+  <div class="glow" style="left:-120px;top:560px;width:800px;height:520px"></div>
+  <div class="sub g" style="left:118px;top:168px">Marco analitico y preguntas guia</div>
+  <div class="h" style="left:118px;top:245px;font-size:94px;line-height:110px">Objetivos del<br>Proyecto</div>
+  <button class="btn next" style="left:110px;top:630px;width:478px;height:107px"><span>SIGUIENTE</span><i></i></button>
+  <div class="card" style="left:760px;top:165px;width:596px;height:630px"></div>
+  <div style="left:810px;top:215px;width:496px;font-size:38px;line-height:48px;font-weight:300;letter-spacing:-.5px;text-align:justify">El <b class="g" style="font-weight:700">proposito</b> es sintetizar perfiles demograficos con rigor</div>
+  <div style="left:810px;top:385px;width:450px;height:1.5px;background:#ccc"></div>
+  <p class="p" style="left:810px;top:420px;width:496px;font-size:19.5px;line-height:28px">1. Disenar un pipeline auditable de ingenieria de datos (Bronze a Silver y Gold).<br>2. Mitigar patologias estadisticas (asimetria severa y no normalidad) con transformaciones robustas.<br>3. Ponderar endogenamente los pilares via PCA y Winsorizacion (OCDE/JRC).<br>4. Segmentar tipologias por clustering y evaluar sigma-convergencia historica.</p>
+</section>
+
+<!-- 3 SUMMARY / UNIVERSO DE DATOS -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:-250px;top:140px;width:520px;height:480px"></div>
+  <div class="glow" style="left:1190px;top:190px;width:520px;height:520px"></div>
+  <div class="sub g" style="left:0;width:1456px;top:150px;text-align:center">UN World Population Prospects (Revision 2024)</div>
+  <div class="h" style="left:0;width:1456px;top:225px;font-size:112px;line-height:115px;text-align:center">Universo y<br>Cobertura Censal</div>
+  <div class="card" style="left:228px;top:490px;width:1000px;height:240px"></div>
+  <p class="p" style="left:270px;top:525px;width:916px;text-align:center;font-size:21px;line-height:31px">Panel balanceado de 17.538 observaciones anuales continuas (1950–2023) sobre 237 entidades territoriales. Separacion epistemologica estricta entre estimaciones observadas y modelos prospectivos futuros. Distincion formal entre 195 Estados soberanos de la ONU y 42 territorios dependientes o regiones administrativas especiales.</p>
+</section>
+
+<!-- 4 ETL / CALIDAD -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:880px;top:130px;width:560px;height:560px"></div>
+  <div class="sub g" style="left:115px;top:165px">Integridad referencial y precision conceptual</div>
+  <div class="img" id="img4" style="left:115px;top:245px;width:490px;height:435px"></div>
+  <div class="h" style="left:655px;top:160px;font-size:92px;line-height:92px;white-space:nowrap">Pipeline ETL y<br>Calidad de Datos</div>
+  <div class="card" style="left:655px;top:395px;width:690px;height:285px"></div>
+  <p class="p" style="left:695px;top:430px;width:610px;font-size:20px;line-height:28px">Filtrado estricto por LocTypeID == 4 para evitar el doble conteo derivado de agregaciones regionales. Exclusion justificada de DoublingTime por indeterminacion matematica (ln(2)/r en poblaciones decrecientes), adoptando PopGrowthRate continua. Correccion de falsos nulos (Namibia ISO2 NA) y persistencia columnar en Apache Parquet.</p>
+</section>
+
+<!-- 5 EDA / COLINEALIDAD -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:150px;top:230px;width:560px;height:520px"></div>
+  <div class="sub g" style="left:107px;top:165px">Embudo metodologico de variables</div>
+  <div class="h" style="left:107px;top:235px;font-size:88px;line-height:92px;white-space:nowrap">Analisis EDA y<br>Colinealidad</div>
+  <div class="card" style="left:107px;top:445px;width:570px;height:285px"></div>
+  <p class="p" style="left:145px;top:478px;width:495px;font-size:19.5px;line-height:28px">Rechazo estricto de normalidad (Shapiro-Wilk p < 0.001) y asimetria severa en mortalidad infantil y fecundidad. Filtro no parametrico de Spearman descartando redundancias colineales extremas (|rho| > 0.90) entre CBR-TFR y Q5-IMR. Aislamiento de la tasa neta de migracion (CNMR) como dimension ortogonal (|rho| < 0.20).</p>
+  <div class="img" id="img5" style="left:725px;top:175px;width:620px;height:555px"></div>
+</section>
+
+<!-- 6 INDICE COMPUESTO -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:-150px;top:480px;width:700px;height:500px"></div>
+  <div class="glow" style="left:880px;top:-120px;width:640px;height:380px"></div>
+  <div class="img" id="img6" style="left:110px;top:160px;width:1236px;height:325px;border-radius:35px"></div>
+  <div class="h" style="left:110px;top:515px;font-size:88px;line-height:86px">Indice Compuesto<br>Demografico (ICD)</div>
+  <div class="card" style="left:745px;top:515px;width:600px;height:215px;border-radius:44px"></div>
+  <p class="p" style="left:780px;top:540px;width:530px;font-size:19.5px;line-height:27px">Ponderacion endogena por varianza explicada en PCA sobre 7 pilares transformados con RobustScaler. Estandarizacion robusta con Winsorizacion de percentiles (P2.5 - P97.5) segun manual OCDE/JRC, preservando distancias cardinales y neutralizando distorsiones por microterritorios insulares.</p>
+</section>
+
+<!-- 7 CLUSTERING / REGIMENES -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:-250px;top:200px;width:520px;height:500px"></div>
+  <div class="glow" style="left:1100px;top:480px;width:600px;height:420px"></div>
+  <div class="sub g" style="left:110px;top:160px">Segmentacion no supervisada en espacio factorial</div>
+  <div class="card" style="left:110px;top:235px;width:580px;height:295px;border-radius:44px"></div>
+  <p class="p" style="left:145px;top:265px;width:510px;font-size:19.5px;line-height:28px">K-Means optimizado por coeficiente de silueta identifica 4 regimenes demograficos nitidos:<br>1. Transicion Incipiente: Alta natalidad y piramides muy jovenes (Africa Subsahariana).<br>2. Transicion Media: Reemplazo reproductivo equilibrado (LatAm/Asia).<br>3. Dinamica Externa: Alta atraccion migratoria neta.<br>4. Post-Transicion Avanzada: Sub-reemplazo y envejecimiento (Europa/Asia Oriental).</p>
+  <div class="img" id="img7" style="left:730px;top:165px;width:615px;height:365px;border-radius:35px"></div>
+  <div class="h" style="left:0;width:1456px;top:585px;font-size:104px;line-height:110px;text-align:center;white-space:nowrap">Regimenes Demograficos Globales</div>
+</section>
+
+<!-- 8 TRAYECTORIAS Y QUIEBRES -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:880px;top:20px;width:560px;height:560px"></div>
+  <div class="h" style="left:97px;top:165px;width:1245px;font-size:94px;line-height:92px;display:flex;justify-content:space-between"><span class="flow">Trayectorias Dinamicas</span><span class="flow">y</span></div>
+  <div class="h" style="left:97px;top:260px;font-size:94px;line-height:92px">Quiebres Estructurales</div>
+  <div class="img" id="img8" style="left:97px;top:410px;width:510px;height:300px;border-radius:35px"></div>
+  <div class="sub g" style="left:650px;top:405px">Morfologia de series y datacion formal</div>
+  <div class="card" style="left:650px;top:465px;width:695px;height:245px;border-radius:44px"></div>
+  <p class="p" style="left:685px;top:495px;width:625px;font-size:19.5px;line-height:28px">Comparacion morfologica bivariada mediante Dynamic Time Warping (DTW) en el plano de fase (TFR, LEx), evitando penalizar desfases cronologicos de inicio. Deteccion de puntos de quiebre estructural mediante regresion segmentada Chow / Bai-Perron para fechar formalmente reformas de planificacion, shocks epidemicos o guerras.</p>
+</section>
+
+<!-- 9 MARCO ETICO Y MIGRACION -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:230px;top:30px;width:600px;height:480px"></div>
+  <div class="h" style="left:90px;top:165px;font-size:94px;line-height:92px">Marco Etico y<br>Hallazgos Criticos</div>
+  <div class="card" style="left:660px;top:175px;width:705px;height:245px;border-radius:44px"></div>
+  <p class="p" style="left:695px;top:205px;width:635px;font-size:19.5px;line-height:28px">Adopcion estricta de las ASA Ethical Guidelines: contextualizacion no alarmista del descenso de natalidad, erradicando discursos de 'panico demografico'. Experimento contrafactual de migracion cero vs media de la ONU demostrando que la inmigracion atenua el envejecimiento pero no revierte el declive intrinseco de las poblaciones receptoras.</p>
+  <div class="img" id="img9" style="left:90px;top:440px;width:1278px;height:330px;border-radius:44px"></div>
+</section>
+
+<!-- 10 THANK YOU / CONCLUSION -->
+<section class="slide" data-nav="3">
+  <div class="glow" style="left:920px;top:-120px;width:620px;height:560px"></div>
+  <div class="card" style="left:88px;top:165px;width:1267px;height:571px;background:linear-gradient(135deg,#242424,#111)"></div>
+  <div class="h" style="left:156px;top:225px;font-size:98px;line-height:105px;white-space:nowrap">Conclusiones y<br><span class="g">Preguntas</span></div>
+  <div style="left:156px;top:450px;width:670px;height:1.5px;background:#ccc"></div>
+  <p class="p" style="left:880px;top:235px;width:420px;font-size:20.5px;line-height:30px">El proyecto demostro la viabilidad de sintetizar la dinamica demografica mundial mediante un indice endogeno, robusto ante atipicos y libre de normalidad ingenua, conectando hallazgos estadisticos con politicas de equidad y sostenibilidad.</p>
+
+  <svg style="left:162px;top:490px" width="34" height="34" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+  <div style="left:215px;top:492px;font-size:21px;line-height:34px">ASA DataQuest 2026 — Pregrado en Estadistica</div>
+
+  <svg style="left:162px;top:560px" width="34" height="34" viewBox="0 0 24 24" fill="#fff"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+  <div style="left:215px;top:560px;font-size:21px;line-height:34px">Universidad Nacional de Colombia — Sede Medellin</div>
+
+  <svg style="left:162px;top:628px" width="34" height="34" viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+  <div style="left:215px;top:628px;font-size:21px;line-height:34px">github.com/yguzmanm-sys/ASA-DataQuest</div>
+
+  <button class="btn" id="btn-interactive" style="left:826px;top:587px"><span>GRAFICO INTERACTIVO</span><i></i></button>
+</section>
+
+</div></div>
+<div class="hint">Flechas &larr; &rarr; para navegar</div>
+
+<script>
+const stage=document.getElementById('stage');
+const slides=[...document.querySelectorAll('.slide')];
+const chevron='<svg width="30" height="52" viewBox="0 0 30 52" fill="none" stroke="#F25A05" stroke-width="3"><path d="M4 3l22 23L4 49"/></svg>';
+const labels=['INICIO','OBJETIVOS','ANALISIS','CIERRE'];
+const pos=[[750,105],[885,130],[1045,120],[1195,110]];
+const target=[0,1,2,9];
+let cur=0;
+
+slides.forEach((s,idx)=>{
+  const a=+s.dataset.nav;
+  let nav='<div class="logo-bar"></div><div class="logo">ASA DATAQUEST<br>2026 · WPP 2024</div>';
+  labels.forEach((t,i)=>{
+    nav+=`<a class="nav${i===a?' act':''}" data-go="${target[i]}" style="left:${pos[i][0]}px;width:${pos[i][1]}px">${t}</a>`;
+  });
+  s.insertAdjacentHTML('afterbegin',nav);
+  s.querySelectorAll('.btn i').forEach(i=>i.innerHTML=chevron);
+});
+
+function show(n){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('on',i===cur));
+  location.hash='#'+(cur+1);
+}
+function fit(){
+  const k=Math.min(innerWidth/1456,innerHeight/819);
+  stage.style.transform='scale('+k+')';
+}
+addEventListener('resize',fit);
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key))show(cur+1);
+  if(['ArrowLeft','PageUp'].includes(e.key))show(cur-1);
+  if(e.key==='Home')show(0);
+  if(e.key==='End')show(slides.length-1);
+});
+document.addEventListener('click',e=>{
+  const nv=e.target.closest('[data-go]');
+  if(nv){show(+nv.dataset.go);return;}
+  if(e.target.closest('.next'))show(cur+1);
+});
+
+const btnInteractive = document.getElementById('btn-interactive');
+if(btnInteractive){
+  btnInteractive.addEventListener('click',()=>{
+    window.open('outputs/figures/final/01_tfr_vs_lex_animated.html','_blank');
+  });
+}
+
+function setImg(id,url){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.style.backgroundImage='url('+url+')';
+  el.classList.add('has');
+}
+
+/* Carga directa de las figuras generadas en el proyecto */
+setImg('img4','eda/03_scatter_tfr_vs_lex_epochs.png');
+setImg('img5','eda/03_correlation_matrix_spearman.png');
+setImg('img6','outputs/figures/final/06_small_multiples_continents.png');
+setImg('img7','outputs/figures/final/06_regime_transition_matrix.png');
+setImg('img8','outputs/figures/final/05_structural_changepoints.png');
+setImg('img9','outputs/figures/final/05_migration_counterfactual.png');
+
+fit();
+show((parseInt(location.hash.slice(1))||1)-1);
+</script>
+</body>
+</html>
