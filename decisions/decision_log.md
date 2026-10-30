@@ -107,13 +107,16 @@
 - **Justificacion**: Elimina el doble conteo de varianza en el PCA/indice y asegura interpretabilidad de cada dimension del perfil demografico.
 - **Alternativas descartadas**: Incluir todos los indicadores en el PCA sin descarte previo; utilizar filtros lineales de Pearson sobre datos con relaciones no lineales.
 
-### Notebook 04 / EDA Multivariado -- Escalamiento robusto con transformacion logaritmica
+### Notebook 04 / EDA Multivariado -- Transformacion logaritmica y estandarizacion de varianza unitaria (PCA sobre matriz de correlaciones)
 
 - **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
-- **Contexto**: Las variables `IMR` (asimetria > +2.0) y `TFR` (asimetria > +1.0) presentan distribuciones severamente asimétricas en el corte 2023 y ninguna variable pasa el test de normalidad (Shapiro-Wilk $p < 0.001$).
-- **Decision**: Aplicar transformacion logaritmica a `IMR` (`log(IMR+1)`) y `TFR` (`log(TFR)`) previo al escalamiento. Usar `RobustScaler` (mediana y rango intercuartilico) en lugar de `StandardScaler`.
-- **Justificacion**: La transformacion log reduce la asimetria sin eliminar la varianza informativa. `RobustScaler` no distorsiona la posicion de los outliers historicos retenidos en el Notebook 02.
-- **Alternativas descartadas**: `StandardScaler` (asume normalidad); Min-Max sin transformacion (sensible a extremos); no transformar (sesga PC1).
+- **Contexto**: Las variables `IMR` (asimetria > +2.0) y `TFR` (asimetria > +1.0) presentan distribuciones marcadamente asimetricas en el corte 2023. El uso inicial de `RobustScaler` (mediana/IQR) preservo la escala bruta de dispersion de la tasa neta de migracion (`CNMR`), otorgandole una varianza reescalada diez veces superior a las demas variables. Como resultado patologico, PC1 quedo dominada en un 96.6% por choques migratorios atipicos, distorsionando por completo la estructura factorial de la transicion demografica.
+- **Decision**: Aplicar transformacion logaritmica a `IMR` (`log(IMR+1)`) y `TFR` (`log(TFR)`), seguida de estandarizacion con `StandardScaler` (media 0, varianza unitaria 1), equivalente a ejecutar PCA sobre la matriz de correlaciones.
+- **Justificacion**: La transformacion logaritmica linealiza y normaliza las colas de fecundidad y mortalidad infantil. La varianza unitaria garantiza que cada pilar demografico contribuya equitativamente al espacio factorial, logrando que PC1 capture genuinamente el eje clasico de transicion demografica (longevidad y envejecimiento vs. mortalidad y fecundidad, 56.7% de varianza) y PC2 aísle la dinamica migratoria y de crecimiento (23.4% de varianza).
+- **Alternativas descartadas**:
+    - `RobustScaler` sin control de varianza relativa: Descartado por hipertrofia de `CNMR` y distorsion total de los loadings de PC1.
+    - Min-Max en features brutas: Descartado por sensibilidad a valores atipicos y no correccion de asimetria.
+    - PCA sobre matriz de covarianzas sin estandarizar: Inviable al mezclar unidades heterogeneas (anos, tasas por mil, hijos por mujer).
 
 ### Notebook 04 / EDA Multivariado -- Ponderacion endogena del Indice Compuesto Demografico (ICD)
 
@@ -140,13 +143,20 @@
     - *Transformacion Sigmoide Robusta*: Descartada porque introduce no-linealidad en la escala, alterando la interpretacion de distancias fijas en los extremos.
     - *Percentile Rank / ECDF*: Descartado porque fuerza una distribucion uniforme artificial, destruyendo las distancias cuantitativas reales entre paises contiguos.
 
-### Notebook 04 / EDA Multivariado -- Determinacion de regimenes demograficos por clustering
+### Notebook 04 / EDA Multivariado -- Determinacion de regimenes demograficos por clustering (K=4)
 
 - **Notebook**: [04_eda_multivariate.ipynb](../notebooks/04_eda_multivariate.ipynb)
-- **Contexto**: Identificar regimenes demograficos estructuralmente distintos permite segmentar los analisis del Notebook 05 y validar la coherencia del ICD.
-- **Decision**: Aplicar K-Means sobre los scores de PCA retenidos, seleccionando K por maximo coeficiente de silueta en el rango [2, 8].
-- **Justificacion**: K-Means es interpretable, escalable y adecuado para clusters de forma convexa. El coeficiente de silueta cuantifica la separabilidad y cohesion de los grupos sin requerir supuestos distribucionales.
-- **Alternativas descartadas**: Clustering jerarquico (mas costoso, menos interpretable para n > 200); DBSCAN (sensible a parametros epsilon/min_samples en dimensiones altas).
+- **Contexto**: Identificar regimenes demograficos estructuralmente distintos permite segmentar los analisis del Notebook 05 y validar la coherencia del ICD. Si bien el coeficiente de silueta se maximiza formalmente en $K=2$ (silueta = 0.485), dicha particion produce una division binaria trivial (Africa subsahariana extrema vs. el resto del mundo), colapsando en un solo grupo a paises pre-transicionales moderados, paises en transicion media y paises post-transicionales hiper-envejecidos.
+- **Decision**: Seleccionar $K=4$ clusters mediante K-Means sobre los scores de PCA retenidos, guiado por el punto de inflexion del metodo del codo y consistencia con las etapas clasicas de la teoria de transicion demografica:
+    1. *Pre-Transicional*: Alta fecundidad, alta mortalidad infantil, baja longevidad (mediana ICD = 17.02).
+    2. *Transicion Media*: Fecundidad en descenso, reduccion drastica de mortalidad infantil (mediana ICD = 49.40).
+    3. *Post-Transicion*: Fecundidad sub-reemplazo, longevidad avanzada y envejecimiento poblacional (mediana ICD = 80.00).
+    4. *Dinamica Migratoria*: Economias avanzadas receptoras con fuerte inmigracion neta (`CNMR` mediana = +9.77) que alteran su ritmo de envejecimiento (mediana ICD = 85.78).
+- **Justificacion**: $K=4$ resuelve la heterogeneidad analitica necesaria para contrastar hipotesis causales sin sobredimensionar la complejidad del modelo, reteniendo un coeficiente de silueta solido (0.347) y evitando el sesgo de agregacion de $K=2$.
+- **Alternativas descartadas**:
+    - $K=2$ (maximo de silueta): Descartado por ser analiticamente esteril (polarizacion simplista sin valor explicativo de fases intermedias).
+    - Clustering jerarquico aglomerativo: Mas costoso computacionalmente y propenso a encadenamiento en fronteras difusas.
+    - DBSCAN: Trata las zonas de transicion continua como ruido estocastico.
 
 ### Notebook 05 / Statistical Insight -- Evaluacion morfologica de trayectorias con DTW bivariado
 
