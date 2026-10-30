@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASA DataQuest 2026 — Transición Demográfica Global, ICD y Predicción al 2050</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{
+  --o:#F25A05;
+  --peach:#FFB8A5;
+  --amber:#FF8C42;
+  --cyan:#38BDF8;
+  --g:linear-gradient(90deg,#F25A05,#FFB8A5);
+  --glow:#A33A00;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;overflow:hidden;font-family:Poppins,'Segoe UI',Arial,sans-serif;color:#fff}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1456px;height:819px;flex:none;transform-origin:center center;background:#000;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;background:#000;overflow:hidden}
+.slide.on{display:block}
+.slide > *{position:absolute}
+.flow, .flow *{position:static}
+.glow{border-radius:50%;filter:blur(70px);background:radial-gradient(circle,var(--glow) 0%,rgba(163,58,0,0) 70%);pointer-events:none}
+.card{border:1.5px solid #e5e5e5;border-radius:34px;background:linear-gradient(135deg,#222222,#0f0f0f);box-shadow:0 12px 34px rgba(0,0,0,.6);overflow:hidden}
+.card-soft{border:1px solid rgba(242,90,5,.45);border-radius:22px;background:linear-gradient(135deg,rgba(40,22,12,.78),rgba(16,16,16,.92))}
+.g{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.sub{font-weight:700;font-size:21px;letter-spacing:-0.4px;line-height:28px;white-space:nowrap}
+.h{font-weight:800;letter-spacing:-1.6px;color:#fffff8;white-space:nowrap}
+.p{font-size:15.5px;line-height:23px;text-align:justify;font-weight:400;letter-spacing:.15px;color:#eaeaea}
+.img{border:1.5px solid #e5e5e5;border-radius:28px;overflow:hidden;background:#111111 center/contain no-repeat;box-shadow:0 10px 30px rgba(0,0,0,.65)}
+.img::after{content:"Visualización";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;color:#ffffff55}
+.img.has::after{display:none}
+.btn{width:420px;height:82px;border:1.5px solid #f4f4f4;border-radius:41px;background:linear-gradient(135deg,#222,#0f0f0f);cursor:pointer;color:#fff;font-family:inherit;transition:transform .15s,border-color .15s}
+.btn:hover{border-color:var(--o);transform:translateY(-2px)}
+.btn span{position:absolute;left:38px;right:98px;top:0;height:100%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600;letter-spacing:-0.3px;white-space:nowrap}
+.btn i{position:absolute;right:0;top:0;width:90px;height:100%;border-radius:0 41px 41px 0;background:linear-gradient(135deg,#3a3a3a,#181818);display:flex;align-items:center;justify-content:center;border-left:1px solid #333}
+.btn i svg{position:static}
+.logo-bar{left:56px;top:32px;width:10px;height:42px;border-radius:5px;background:var(--o)}
+.logo{left:78px;top:33px;font-weight:700;font-size:16.5px;line-height:19.5px;letter-spacing:-0.4px;width:250px;color:#fff}
+.nav{top:33px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#ddd;cursor:pointer;text-decoration:none;letter-spacing:.3px;border:1px solid transparent;transition:all .15s}
+.nav:hover{border-color:#444;color:#fff}
+.nav.act{background:var(--o);color:#fff;font-weight:700;box-shadow:0 0 18px rgba(242,90,5,.45)}
+.slide-counter{right:56px;top:38px;font-size:13.5px;font-weight:600;color:#FFB8A5;letter-spacing:1px;padding:4px 12px;border-radius:10px;border:1px solid rgba(242,90,5,.4);background:rgba(242,90,5,.12)}
+.hint{position:fixed;right:16px;bottom:8px;font-size:11.5px;color:#888;z-index:9}
+.pill{display:inline-block;padding:3px 10px;border-radius:14px;border:1px solid var(--o);background:rgba(242,90,5,.16);color:#FFB8A5;font-size:11.5px;font-weight:600;letter-spacing:.4px}
+.kpi-grid{display:grid;gap:10px}
+.kpi-box{padding:9px 14px;border-radius:18px;border:1px solid #383838;background:rgba(24,24,24,.92)}
+.kpi-val{font-size:21px;font-weight:800;color:#F25A05;line-height:25px}
+.kpi-lbl{font-size:11.8px;color:#ccc;line-height:15.5px;margin-top:2px}
+.tbl{width:100%;border-collapse:collapse;font-size:12.6px;color:#eee}
+.tbl th{background:rgba(242,90,5,.22);color:#FFB8A5;font-weight:700;text-align:left;padding:6px 10px;border-bottom:1.5px solid #F25A05;font-size:12.2px}
+.tbl td{padding:5.5px 10px;border-bottom:1px solid #2d2d2d;vertical-align:middle;line-height:16.5px}
+.tbl tr:last-child td{border-bottom:none}
+.bullet-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.bullet-list li{position:relative;padding-left:18px;font-size:13.8px;line-height:19.5px;color:#eaeaea;text-align:left}
+.bullet-list li::before{content:"▸";position:absolute;left:0;top:0;color:var(--o);font-weight:800}
+.formula-box{padding:8px 14px;border-radius:16px;border:1px solid rgba(255,184,165,.4);background:#141414;text-align:center;font-size:14px;color:#fff}
+
+@media print {
+  html, body { height: auto; overflow: visible; background: #000; }
+  #viewport { position: static; display: block; }
+  #stage { width: 1456px; height: auto; transform: none !important; }
+  .slide { position: relative; display: block !important; width: 1456px; height: 819px; page-break-after: always; break-after: page; }
+  .hint { display: none; }
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- ==================== SLIDE 1: PORTADA ==================== -->
+<section class="slide" data-nav="0">
+  <div class="glow" style="left:-140px;top:-90px;width:620px;height:620px"></div>
+  <div class="glow" style="left:1020px;top:430px;width:520px;height:460px"></div>
+  <div class="card" style="left:56px;top:102px;width:1344px;height:672px"></div>
+
+  <div class="flow" style="position:absolute;left:104px;top:138px;display:flex;gap:10px">
+    <span class="pill">ASA DATAQUEST 2026</span>
+    <span class="pill">UN WPP 2024 (1950–2100)</span>
+    <span class="pill">ARQUITECTURA MEDALLION · SEED = 28 / 42</span>
+  </div>
+
+  <div style="left:104px;top:182px;width:1248px;font-size:43px;line-height:52px;font-weight:400;letter-spacing:-1.2px">
+    Divergencia en la <span class="g" style="font-weight:800">Transición Demográfica Global</span>:<br>
+    <b style="font-weight:700">Índice de Madurez (ICD) y Predicción de Regímenes (2050)</b>
+  </div>
+
+  <div style="left:104px;top:304px;width:1248px;height:1.5px;background:linear-gradient(90deg,#F25A05,#444,transparent)"></div>
+
+  <p class="p" style="left:104px;top:336px;width:725px;font-size:16px;line-height:24.5px">
+    Investigación cuantitativa sobre <b>237 países y áreas</b> oficiales de Naciones Unidas. Se construye el <b>Índice de Madurez Demográfica (ICD 0–100)</b> mediante PCA sobre matriz de correlaciones y Winsorización robusta $P_{2.5}\text{–}P_{97.5}$ (OCDE/JRC), se refuta la hipótesis de convergencia homogénea global y se entrena un modelo supervisado de Machine Learning ($P(\text{Régimen}_{2050} \mid \text{ICD}_{2023}, \mathbf{x}_{2023})$) auditado bajo los 10 principios éticos de la ASA.
+  </p>
+
+  <!-- 3 Categorías Objetivo -->
+  <div class="flow kpi-grid" style="position:absolute;left:104px;top:492px;width:725px;grid-template-columns:repeat(3,1fr);gap:14px">
+    <div class="kpi-box" style="padding:14px 16px">
+      <div class="kpi-val" style="font-size:17.5px">Best Statistical Insight</div>
+      <div class="kpi-lbl" style="font-size:12.2px;line-height:17px;margin-top:5px">ICD predictor #1 (<b>18.9% Gini</b>), umbral crítico en <b>ICD = 52.0</b> y 5 familias ML (Accuracy <b>89.1%</b>).</div>
+    </div>
+    <div class="kpi-box" style="padding:14px 16px">
+      <div class="kpi-val" style="font-size:17.5px">Data Quality &amp; Pipeline</div>
+      <div class="kpi-lbl" style="font-size:12.2px;line-height:17px;margin-top:5px">Capas <b>Bronze → Silver → Gold</b> en Parquet, auditoría de 195 Estados vs. 42 dependencias y corte <code>IsEstimate</code>.</div>
+    </div>
+    <div class="kpi-box" style="padding:14px 16px">
+      <div class="kpi-val" style="font-size:17.5px">Consideration of Ethics</div>
+      <div class="kpi-lbl" style="font-size:12.2px;line-height:17px;margin-top:5px">Checklist de <b>10 principios ASA</b>, validación honesta <i>out-of-fold</i> y políticas sin fatalismo ni alarmismo.</div>
+    </div>
+  </div>
+
+  <div class="card-soft flow" style="position:absolute;left:864px;top:336px;width:486px;height:212px;padding:18px 22px">
+    <div style="font-size:14.5px;font-weight:700;color:#FFB8A5;margin-bottom:8px">PREGRADO EN ESTADÍSTICA · UNAL MEDELLÍN</div>
+    <ul class="bullet-list" style="gap:7px">
+      <li style="font-size:13.5px;line-height:19px"><b>Cobertura:</b> 17.538 registros censales observados (1950–2023) + 18.486 proyecciones (2024–2100).</li>
+      <li style="font-size:13.5px;line-height:19px"><b>Trazabilidad:</b> 17 decisiones metodológicas documentadas en <code>decisions/decision_log.md</code>.</li>
+      <li style="font-size:13.5px;line-height:19px"><b>Visualización 60 FPS:</b> Curva animada TFR vs. LEx con densidad Kernel Gaussiana 2D.</li>
+    </ul>
+  </div>
+
+  <button class="btn next" style="left:895px;top:586px;width:455px"><span>INICIAR RECORRIDO</span><i></i></button>
+</section>
+
+<!-- ==================== SLIDE 2: PROBLEMA Y FLUJO METODOLOGICO ==================== -->
+<section class="slide" data-nav="1">
+  <div class="glow" style="left:-120px;top:500px;width:680px;height:460px"></div>
+  <div class="sub g" style="left:56px;top:92px">Planteamiento del Problema y Pregunta Central de Investigación</div>
+  <div class="h" style="left:56px;top:124px;font-size:44px;line-height:50px">¿Convergencia Homogénea o Polarización por Umbrales?</div>
+
+  <!-- Columna Izquierda: Las 3 preguntas -->
+  <div class="card flow" style="position:absolute;left:56px;top:192px;width:650px;height:582px;padding:22px 26px">
+    <div style="font-size:19px;font-weight:700;color:#FFB8A5;margin-bottom:10px">Tres Interrogantes Científicos Acoplados</div>
+    <div style="height:1.5px;background:#444;margin-bottom:14px"></div>
+
+    <div class="card-soft" style="padding:12px 16px;margin-bottom:12px">
+      <div style="font-size:14.5px;font-weight:700;color:#F25A05;margin-bottom:4px">1. Síntesis Multivariada (Notebooks 01–04)</div>
+      <div style="font-size:13.4px;line-height:19px;color:#eaeaea">¿Cómo condensar 67 indicadores demográficos con asimetría extrema, choques históricos y colinealidad severa ($|\rho_S| > 0.90$) en una métrica única, cardinal y no arbitraria del perfil demográfico de un país (<b>ICD</b>)?</div>
+    </div>
+
+    <div class="card-soft" style="padding:12px 16px;margin-bottom:12px">
+      <div style="font-size:14.5px;font-weight:700;color:#F25A05;margin-bottom:4px">2. Inferencia y Predicción al 2050 (Notebook 05)</div>
+      <div style="font-size:13.4px;line-height:19px;color:#eaeaea">¿Hacia qué régimen demográfico transitarán las naciones en 2050, qué umbral estructural del presente determina el salto hacia la <b>Post-Transición</b>, y qué países enfrentan riesgo crítico de quedar atrapados en la <b>Pre-Transición</b>?</div>
+    </div>
+
+    <div class="card-soft" style="padding:12px 16px;margin-bottom:12px">
+      <div style="font-size:14.5px;font-weight:700;color:#F25A05;margin-bottom:4px">3. Gobernanza Ética y Política Pública (Documento 06)</div>
+      <div style="font-size:13.4px;line-height:19px;color:#eaeaea">¿Cómo traducir las predicciones algorítmicas en políticas públicas bajo los <b>10 principios éticos de la ASA</b>, erradicando el determinismo sobre el Sur Global, el alarmismo natalista y la instrumentalización migratoria?</div>
+    </div>
+
+    <div style="font-size:13px;line-height:18.5px;color:#ccc;margin-top:6px">
+      <b class="g">Hipótesis Refutada:</b> La transición demográfica global no opera como un continuo lineal sincrónico, sino como un sistema bifurcado por un umbral crítico en $\text{ICD} = 52.0$.
+    </div>
+  </div>
+
+  <!-- Columna Derecha: Pipeline Modular Medallion -->
+  <div class="card flow" style="position:absolute;left:730px;top:192px;width:670px;height:582px;padding:22px 26px">
+    <div style="font-size:19px;font-weight:700;color:#FFB8A5;margin-bottom:10px">Arquitectura Metodológica Secuencial (Notebooks 00 a 06)</div>
+    <div style="height:1.5px;background:#444;margin-bottom:12px"></div>
+
+    <table class="tbl" style="font-size:12px">
+      <thead>
+        <tr>
+          <th style="width:23%">Fase / Capa</th>
+          <th style="width:29%">Módulo</th>
+          <th>Aporte Técnico y Metodológico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill" style="font-size:10.5px">BRONZE → SILVER</span></td>
+          <td><b>00_setup</b> &amp;<br><b>01_bronze_to_silver</b></td>
+          <td>Filtro <code>LocTypeID == 4</code> (237 localidades), corte <code>IsEstimate</code> ($\le 2023$ vs $\ge 2024$), exclusión de <code>DoublingTime</code> y tipado Parquet.</td>
+        </tr>
+        <tr>
+          <td><span class="pill" style="font-size:10.5px">EDA UNIVARIADO</span></td>
+          <td><b>02_eda_univariate</b></td>
+          <td>Rechazo de normalidad (Shapiro-Wilk $p < 0.001$), retención de outliers históricos reales y transformación logarítmica en <code>IMR</code> y <code>TFR</code>.</td>
+        </tr>
+        <tr>
+          <td><span class="pill" style="font-size:10.5px">EDA BIVARIADO</span></td>
+          <td><b>03_eda_bivariate</b></td>
+          <td>Embudo de Spearman ($|\rho_S| > 0.90$): descarte de <code>CBR</code> y <code>Q5</code>; aislamiento de migración (<code>CNMR</code>) y brecha de género (<code>GenderGapLE</code>).</td>
+        </tr>
+        <tr>
+          <td><span class="pill" style="font-size:10.5px">GOLD · PCA &amp; ICD</span></td>
+          <td><b>04_eda_multivariate</b></td>
+          <td>PCA sobre correlaciones (80.1% varianza en PC1+PC2), <b>ICD (0–100)</b> con Winsorización $P_{2.5}\text{–}P_{97.5}$, clustering $K=4$ y $\sigma$-convergencia.</td>
+        </tr>
+        <tr>
+          <td><span class="pill" style="font-size:10.5px">ML SUPERVISADO</span></td>
+          <td><b>05_statistical_insight</b></td>
+          <td>Proyección al 2050 sin <i>data leakage</i>, benchmarking 5-Fold CV de 5 modelos (Accuracy 89.1%), importancia Gini y umbral $\text{ICD} = 52.0$.</td>
+        </tr>
+        <tr>
+          <td><span class="pill" style="font-size:10.5px">ÉTICA &amp; POLÍTICA</span></td>
+          <td><b>06_ethics_and_report</b></td>
+          <td>Auditoría de los 10 principios ASA, matriz de limitaciones técnicas y hoja de ruta de política pública por régimen demográfico.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 3: CALIDAD DE DATOS Y PIPELINE ETL ==================== -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:880px;top:130px;width:540px;height:520px"></div>
+  <div class="sub g" style="left:56px;top:92px">Notebook 01 · Integridad Referencial, Rigor Geopolítico y Limpieza Auditada</div>
+  <div class="h" style="left:56px;top:124px;font-size:44px;line-height:50px">Universo Censal y Pipeline de Calidad de Datos</div>
+
+  <!-- Imagen Izquierda: Scatter TFR vs LEx Epocas -->
+  <div class="img" id="img3" style="left:56px;top:192px;width:660px;height:582px"></div>
+
+  <!-- Derecha: Tarjetas de decisiones ETL -->
+  <div class="card flow" style="position:absolute;left:740px;top:192px;width:660px;height:582px;padding:20px 26px">
+    <div style="font-size:18.5px;font-weight:700;color:#FFB8A5;margin-bottom:8px">5 Decisiones Críticas de Ingeniería de Datos</div>
+    <div style="height:1.5px;background:#444;margin-bottom:10px"></div>
+
+    <ul class="bullet-list" style="gap:7.5px">
+      <li style="font-size:13.2px;line-height:18.5px">
+        <b>Prevención de doble conteo (<code>LocTypeID == 4</code>):</b> El dataset crudo mezcla 9 niveles de agregación (continentes, regiones, grupos de ingreso). Se filtra estrictamente a nivel de unidad territorial para evitar duplicar población mundial.
+      </li>
+      <li style="font-size:13.2px;line-height:18.5px">
+        <b>Distinción geopolítica (195 Estados soberanos vs. 42 Dependencias):</b> Se auditan los 42 territorios no soberanos (Puerto Rico, Hong Kong, Groenlandia, etc.) adoptando la denominación oficial ONU de <b>"Países y Áreas" (237 unidades)</b> y documentando el caso atípico de la Santa Sede (<code>LocID == 336</code>).
+      </li>
+      <li style="font-size:13.2px;line-height:18.5px">
+        <b>Separación epistemológica (<code>IsEstimate</code>):</b> Corte estricto entre <b>estimaciones empíricas retrospectivas ($\le 2023$, 17.538 filas)</b> y <b>proyecciones modeladas ($\ge 2024$, 18.486 filas)</b>.
+      </li>
+      <li style="font-size:13.2px;line-height:18.5px">
+        <b>Exclusión matemática de <code>DoublingTime</code> (20.53% nulos):</b> No es un error de registro sino una indeterminación analítica ($T_d = \ln(2)/r$ no existe si $r \le 0$). Eliminar nulos sesgaría la muestra excluyendo a Europa y Asia Oriental; se adopta <code>PopGrowthRate</code> (0% nulos).
+      </li>
+      <li style="font-size:13.2px;line-height:18.5px">
+        <b>Corrección de falsos nulos e ingeniería de variables:</b> Imputación del código <code>ISO2 = "NA"</code> de Namibia y creación de <code>GenderGapLE</code> ($\text{LEx}_F - \text{LEx}_M$), <code>NaturalGrowth</code> ($\text{CBR} - \text{CDR}$) y <code>Epoch</code>.
+      </li>
+    </ul>
+
+    <div class="flow kpi-grid" style="margin-top:12px;grid-template-columns:repeat(3,1fr)">
+      <div class="kpi-box" style="padding:8px 10px;text-align:center">
+        <div class="kpi-val" style="font-size:20px">237</div>
+        <div class="kpi-lbl">Países y Áreas auditados</div>
+      </div>
+      <div class="kpi-box" style="padding:8px 10px;text-align:center">
+        <div class="kpi-val" style="font-size:20px">17.538</div>
+        <div class="kpi-lbl">Observaciones (1950–2023)</div>
+      </div>
+      <div class="kpi-box" style="padding:8px 10px;text-align:center">
+        <div class="kpi-val" style="font-size:20px">100%</div>
+        <div class="kpi-lbl">Completitud en los 7 pilares</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 4: EDA UNIVARIADO ==================== -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:120px;top:240px;width:540px;height:480px"></div>
+  <div class="sub g" style="left:56px;top:92px">Notebook 02 · Diagnóstico Distribucional, Asimetría y Eventos Históricos Extremos</div>
+  <div class="h" style="left:56px;top:124px;font-size:44px;line-height:50px">Patologías Estadísticas y Retención de Outliers Reales</div>
+
+  <!-- Izquierda: Explicación y Tabla de Outliers Históricos -->
+  <div class="card flow" style="position:absolute;left:56px;top:192px;width:610px;height:582px;padding:16px 22px">
+    <div style="font-size:17.5px;font-weight:700;color:#FFB8A5;margin-bottom:5px">¿Por qué el Z-Score Clásico Fracasa Aquí?</div>
+    <div style="height:1.5px;background:#444;margin-bottom:8px"></div>
+
+    <ul class="bullet-list" style="gap:5.5px;margin-bottom:9px">
+      <li style="font-size:12.4px;line-height:17px">
+        <b>Rechazo universal de normalidad (Shapiro-Wilk $p < 0.001$):</b> Los 7 pilares rechazan la normalidad en 2023. Destacan la leptocurtosis extrema de migración (<code>CNMR</code>, curtosis $= 9.30$, $W = 0.792$) y la asimetría positiva severa en mortalidad infantil (<code>IMR</code>, skew $= +1.50$, $W = 0.811$) y fecundidad (<code>TFR</code>, skew $= +1.17$, $W = 0.881$).
+      </li>
+      <li style="font-size:12.4px;line-height:17px">
+        <b>Principio de rigor demográfico ante valores atípicos:</b> Los outliers <b>no son errores de digitación</b>; representan genocidios, hambrunas, guerras o booms migratorios verídicos que deben conservarse.
+      </li>
+      <li style="font-size:12.4px;line-height:17px">
+        <b>Solución implementada:</b> Transformación logarítmica en $\log(\text{IMR}+1)$ y $\log(\text{TFR})$ previa al escalamiento factorial, combinada con Winsorización $P_{2.5}\text{–}P_{97.5}$ en el índice final.
+      </li>
+    </ul>
+
+    <div style="font-size:13.2px;font-weight:700;color:#FFB8A5;margin-bottom:5px">Auditoría de Casos Extremos Verídicos Retenidos en Silver/Gold:</div>
+    <table class="tbl" style="font-size:11.3px">
+      <thead>
+        <tr>
+          <th style="padding:4.5px 8px">Dimensión</th>
+          <th style="padding:4.5px 8px">País / Territorio y Año</th>
+          <th style="padding:4.5px 8px">Valor Observado</th>
+          <th style="padding:4.5px 8px">Causa Histórica Documentada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:4px 8px;line-height:14.5px"><b>Colapso LEx</b></td>
+          <td style="padding:4px 8px;line-height:14.5px">Sudán del Sur (1988)<br>Camboya (1977)<br>Ruanda (1994)</td>
+          <td style="padding:4px 8px;line-height:14.5px">$\text{LEx} = 10.99$ años<br>$\text{LEx} = 11.30$ años<br>$\text{LEx} = 12.16$ años</td>
+          <td style="padding:4px 8px;line-height:14.5px">Hambruna y guerra civil<br>Genocidio Jemer Rojo<br>Genocidio de Ruanda</td>
+        </tr>
+        <tr>
+          <td style="padding:4px 8px;line-height:14.5px"><b>Choque CNMR</b></td>
+          <td style="padding:4px 8px;line-height:14.5px">Hong Kong / Macao (1964)<br>Kuwait (1991) / Qatar (2006)</td>
+          <td style="padding:4px 8px;line-height:14.5px">$\text{CNMR} > +350\text{‰}$<br>$\text{CNMR} > +209\text{‰}$</td>
+          <td style="padding:4px 8px;line-height:14.5px">Éxodo regional asiático<br>Reconstrucción y boom energético</td>
+        </tr>
+        <tr>
+          <td style="padding:4px 8px;line-height:14.5px"><b>Extremos TFR (2023)</b></td>
+          <td style="padding:4px 8px;line-height:14.5px">Macao (0.66) / Corea Sur (0.72)<br>Somalia (6.13) / Chad (6.12)</td>
+          <td style="padding:4px 8px;line-height:14.5px">$\text{TFR} < 0.75$ hijos<br>$\text{TFR} > 6.05$ hijos</td>
+          <td style="padding:4px 8px;line-height:14.5px">Transición ultrabaja asiática vs.<br>Rezago pre-transicional en el Sahel</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Derecha: Gráfico 2x2 KDE + Boxplot + Shapiro -->
+  <div class="img" id="img4" style="left:690px;top:192px;width:710px;height:582px"></div>
+</section>
+
+<!-- ==================== SLIDE 5: EDA BIVARIADO Y COLINEALIDAD ==================== -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:820px;top:220px;width:560px;height:520px"></div>
+  <div class="sub g" style="left:56px;top:92px">Notebook 03 · Embudo de Redundancia Bivariada y Ortogonalidad</div>
+  <div class="h" style="left:56px;top:124px;font-size:44px;line-height:50px">Filtro de Spearman y Selección de los 7 Pilares</div>
+
+  <!-- Izquierda: Explicación del Embudo y Tabla de Pares Colineales -->
+  <div class="card flow" style="position:absolute;left:56px;top:192px;width:630px;height:582px;padding:15px 22px">
+    <div style="font-size:17.5px;font-weight:700;color:#FFB8A5;margin-bottom:5px">Prevención del Doble Conteo de Varianza en PCA</div>
+    <div style="height:1.5px;background:#444;margin-bottom:7px"></div>
+
+    <p class="p" style="font-size:12.6px;line-height:17.5px;margin-bottom:7px">
+      Introducir indicadores altamente colineales ($|\rho_S| > 0.90$) en un PCA sesga los vectores propios, sobreponderando el pilar repetido. Se aplicó un filtro no paramétrico de Spearman sobre 11 candidatos para destilar <b>7 pilares ortogonales y complementarios</b>:
+    </p>
+
+    <table class="tbl" style="font-size:11.2px;margin-bottom:8px">
+      <thead>
+        <tr>
+          <th style="padding:4px 7px">Pilar Demográfico</th>
+          <th style="padding:4px 7px">Retenida</th>
+          <th style="padding:4px 7px">Descartada ($|\rho_S| > 0.90$)</th>
+          <th style="padding:4px 7px">Justificación Demográfica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:3.5px 7px;line-height:14px"><b>1. Fecundidad</b></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>TFR</code></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>CBR</code> ($\rho = 0.978$)</td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>TFR</code> mide fecundidad pura sin sesgo por pirámide etaria.</td>
+        </tr>
+        <tr>
+          <td style="padding:3.5px 7px;line-height:14px"><b>2. Mort. Temprana</b></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>IMR</code></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>Q5</code> ($\rho = 0.998$)</td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>IMR</code> es el estándar primario materno-infantil.</td>
+        </tr>
+        <tr>
+          <td style="padding:3.5px 7px;line-height:14px"><b>3. Longevidad</b></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>LEx</code></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>LE60</code> ($\rho = 0.960$)</td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>LEx</code> sintetiza la supervivencia de todo el ciclo vital.</td>
+        </tr>
+        <tr>
+          <td style="padding:3.5px 7px;line-height:14px"><b>4. Estructura</b></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>MedianAgePop</code></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>NaturalGrowth</code> ($\rho = -0.919$)</td>
+          <td style="padding:3.5px 7px;line-height:14px">Captura directamente el envejecimiento o bono juvenil.</td>
+        </tr>
+        <tr>
+          <td style="padding:3.5px 7px;line-height:14px"><b>5. Dinámica Total</b></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>PopGrowthRate</code></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>DoublingTime</code> (20.5% NaN)</td>
+          <td style="padding:3.5px 7px;line-height:14px">Combina balance vegetativo y migratorio sin indeterminación.</td>
+        </tr>
+        <tr>
+          <td style="padding:3.5px 7px;line-height:14px"><b>6. Migración</b></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>CNMR</code></td>
+          <td style="padding:3.5px 7px;line-height:14px"><i>Ninguna</i> ($|\rho| \le 0.23$)</td>
+          <td style="padding:3.5px 7px;line-height:14px"><b>Dimensión ortogonal</b> de atracción o expulsión poblacional.</td>
+        </tr>
+        <tr>
+          <td style="padding:3.5px 7px;line-height:14px"><b>7. Equidad Salud</b></td>
+          <td style="padding:3.5px 7px;line-height:14px"><code>GenderGapLE</code></td>
+          <td style="padding:3.5px 7px;line-height:14px"><i>Ninguna</i> ($|\rho| \le 0.50$)</td>
+          <td style="padding:3.5px 7px;line-height:14px">Captura sobremortalidad masculina (Ucrania 13.3a) o rezago materno.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-soft" style="padding:7px 11px;font-size:11.8px;line-height:16px;color:#ddd">
+      <b style="color:#FFB8A5">Hallazgo de Amortiguación Migratoria:</b> En 2023, economías con crecimiento vegetativo negativo ($\text{CBR} < \text{CDR}$, como Lituania, Croacia o Mónaco) compensan su declive vía saldo migratorio positivo (Cuadrante II: <code>NaturalGrowth &lt; 0</code>, <code>CNMR &gt; 0</code>).
+    </div>
+  </div>
+
+  <!-- Derecha: Heatmap Spearman -->
+  <div class="img" id="img5" style="left:710px;top:192px;width:690px;height:582px"></div>
+</section>
+
+<!-- ==================== SLIDE 6: CONSTRUCCION DEL ICD (PCA + WINSORIZACION) ==================== -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:-120px;top:450px;width:640px;height:440px"></div>
+  <div class="glow" style="left:900px;top:-100px;width:580px;height:360px"></div>
+  <div class="sub g" style="left:56px;top:92px">Notebook 04 · Respuesta Metodológica a la Construcción del Índice Compuesto</div>
+  <div class="h" style="left:56px;top:124px;font-size:44px;line-height:50px">Índice de Madurez Demográfica (ICD): PCA y Winsorización</div>
+
+  <!-- Arriba: Panel Triple PCA Scree + Loadings + Boxplot ICD -->
+  <div class="img" id="img6" style="left:56px;top:186px;width:1344px;height:364px"></div>
+
+  <!-- Abajo: 3 tarjetas con las justificaciones metodológicas y la fórmula -->
+  <div class="flow" style="position:absolute;left:56px;top:564px;width:1344px;display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:18px;height:210px">
+    <div class="card" style="padding:15px 18px;border-radius:24px">
+      <div style="font-size:15px;font-weight:700;color:#F25A05;margin-bottom:5px">1. ¿Por qué Matriz de Correlaciones ($\sigma^2=1$)?</div>
+      <p style="font-size:12.8px;line-height:18.5px;color:#e0e0e0;text-align:justify">
+        En pruebas preliminares, <code>RobustScaler</code> conservó la dispersión extrema de <code>CNMR</code> (10× mayor), haciendo que PC1 fuera absorbida en un <b>96.6% por choques migratorios</b>. Al aplicar $\log(\text{IMR}+1)$, $\log(\text{TFR})$ y <code>StandardScaler</code>, cada pilar aporta varianza unitaria equitativa.
+      </p>
+    </div>
+
+    <div class="card" style="padding:15px 18px;border-radius:24px">
+      <div style="font-size:15px;font-weight:700;color:#F25A05;margin-bottom:5px">2. Ponderación Endógena (80.1% Varianza)</div>
+      <p style="font-size:12.8px;line-height:18.5px;color:#e0e0e0;text-align:justify">
+        <b>PC1 (56.7%):</b> Transición clásica ($\text{LEx}, \text{MedianAge} > 0$ vs. $\log\text{TFR}, \log\text{IMR} < 0$).<br>
+        <b>PC2 (23.4%):</b> Dinámica migratoria ($\text{CNMR} = +0.74, \text{PopGrowth} = +0.54$).<br>
+        Pesos objetivos: $w_1 = 0.7079$, $w_2 = 0.2921$ orientados con $\text{LEx}$.
+      </p>
+    </div>
+
+    <div class="card" style="padding:15px 18px;border-radius:24px;display:flex;flex-direction:column;justify-content:space-between">
+      <div style="font-size:15px;font-weight:700;color:#FFB8A5">3. Winsorización $P_{2.5}\text{–}P_{97.5}$ (Manual OCDE/JRC)</div>
+      <div class="formula-box" style="padding:5px 10px;font-size:13.5px">
+        $$\text{ICD}_i = 100 \times \operatorname{clip}\!\left(\frac{\text{raw}_i - P_{2.5}}{P_{97.5} - P_{2.5}},\, 0,\, 1\right)$$
+      </div>
+      <p style="font-size:12.2px;line-height:17px;color:#ccc">
+        El Min-Max ingenuo colapsa el 95% de países por culpa de microestados (Jarque-Bera $p < 10^{-100}$). La Winsorización ($[-2.794, +2.184]$) preserva distancias cardinales lineales (Mediana global $= 60.2$).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 7: CLUSTERING K=4 Y SIGMA-CONVERGENCIA ==================== -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:-200px;top:200px;width:520px;height:480px"></div>
+  <div class="sub g" style="left:56px;top:92px">Notebook 04 · Segmentación Factorial y Prueba Formal de Convergencia (1950–2023)</div>
+  <div class="h" style="left:56px;top:124px;font-size:43px;line-height:49px">Los 4 Regímenes Demográficos y la Falacia de la Convergencia</div>
+
+  <!-- Arriba: Imagen doble K=4 + Sigma Convergencia -->
+  <div class="img" id="img7" style="left:56px;top:182px;width:1344px;height:336px"></div>
+
+  <!-- Abajo: Tabla de los 4 Regímenes + Justificación K=4 vs K=2 -->
+  <div class="flow" style="position:absolute;left:56px;top:528px;width:1344px;display:grid;grid-template-columns:1.62fr 1fr;gap:18px;height:248px">
+    <div class="card" style="padding:11px 16px;border-radius:24px">
+      <div style="font-size:13.8px;font-weight:700;color:#FFB8A5;margin-bottom:4px">Perfiles Medianos de los 4 Regímenes Estructurales Identificados (Corte 2023)</div>
+      <table class="tbl" style="font-size:11.2px">
+        <thead>
+          <tr>
+            <th style="padding:4px 7px">Régimen Demográfico</th>
+            <th style="padding:4px 7px">ICD Med.</th>
+            <th style="padding:4px 7px">TFR</th>
+            <th style="padding:4px 7px">LEx</th>
+            <th style="padding:4px 7px">IMR (‰)</th>
+            <th style="padding:4px 7px">Edad M.</th>
+            <th style="padding:4px 7px">CNMR</th>
+            <th style="padding:4px 7px">Caracterización Estructural</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:3.5px 7px;line-height:14px"><b style="color:#EF4444">1. Pre-Transicional</b></td>
+            <td style="padding:3.5px 7px;line-height:14px"><b>17.02</b></td>
+            <td style="padding:3.5px 7px;line-height:14px">3.95</td>
+            <td style="padding:3.5px 7px;line-height:14px">65.50</td>
+            <td style="padding:3.5px 7px;line-height:14px">37.56</td>
+            <td style="padding:3.5px 7px;line-height:14px">18.65</td>
+            <td style="padding:3.5px 7px;line-height:14px">-0.25</td>
+            <td style="padding:3.5px 7px;line-height:14px">Alta fecundidad y mortalidad infantil; pirámide joven (África Subsahariana).</td>
+          </tr>
+          <tr>
+            <td style="padding:3.5px 7px;line-height:14px"><b style="color:#F59E0B">2. Transición Media</b></td>
+            <td style="padding:3.5px 7px;line-height:14px"><b>49.40</b></td>
+            <td style="padding:3.5px 7px;line-height:14px">2.19</td>
+            <td style="padding:3.5px 7px;line-height:14px">72.65</td>
+            <td style="padding:3.5px 7px;line-height:14px">14.30</td>
+            <td style="padding:3.5px 7px;line-height:14px">28.20</td>
+            <td style="padding:3.5px 7px;line-height:14px">-1.16</td>
+            <td style="padding:3.5px 7px;line-height:14px">Umbral de reemplazo y bono demográfico activo (LatAm, Sudeste Asiático).</td>
+          </tr>
+          <tr>
+            <td style="padding:3.5px 7px;line-height:14px"><b style="color:#F25A05">3. Post-Transición</b></td>
+            <td style="padding:3.5px 7px;line-height:14px"><b>80.00</b></td>
+            <td style="padding:3.5px 7px;line-height:14px">1.46</td>
+            <td style="padding:3.5px 7px;line-height:14px">78.60</td>
+            <td style="padding:3.5px 7px;line-height:14px">5.02</td>
+            <td style="padding:3.5px 7px;line-height:14px">41.85</td>
+            <td style="padding:3.5px 7px;line-height:14px">-0.18</td>
+            <td style="padding:3.5px 7px;line-height:14px">Sub-reemplazo, envejecimiento avanzado y declive vegetativo ($r = -0.30\%$).</td>
+          </tr>
+          <tr>
+            <td style="padding:3.5px 7px;line-height:14px"><b style="color:#38BDF8">4. Dinámica Migratoria</b></td>
+            <td style="padding:3.5px 7px;line-height:14px"><b>85.78</b></td>
+            <td style="padding:3.5px 7px;line-height:14px">1.47</td>
+            <td style="padding:3.5px 7px;line-height:14px">81.78</td>
+            <td style="padding:3.5px 7px;line-height:14px">4.39</td>
+            <td style="padding:3.5px 7px;line-height:14px">38.30</td>
+            <td style="padding:3.5px 7px;line-height:14px"><b>+9.77</b></td>
+            <td style="padding:3.5px 7px;line-height:14px">Economías avanzadas receptoras que amortiguan envejecimiento vía inmigración.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="padding:14px 18px;border-radius:24px">
+      <div style="font-size:14.5px;font-weight:700;color:#F25A05;margin-bottom:6px">¿Por qué $K=4$ (Silueta 0.388) y no $K=2$?</div>
+      <p style="font-size:12.6px;line-height:18px;color:#e0e0e0;text-align:justify;margin-bottom:8px">
+        Aunque el coeficiente de silueta se maximiza en $K=2$ ($0.485$), esa partición genera una dicotomía trivial (África extrema vs. resto del mundo). El punto de inflexión del codo en <b>$K=4$</b> separa las etapas intermedias y aísla el régimen migratorio.
+      </p>
+      <div style="font-size:12.5px;line-height:17.5px;color:#FFB8A5">
+        <b>Veredicto $\sigma$-Convergencia:</b> El mundo converge en supervivencia biológica (<code>LEx</code> $\beta = -0.00168$), pero se polariza en fecundidad (<code>TFR</code> $\beta = +0.00345$) y envejecimiento.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 8: MATRIZ DE TRANSICION 2023 -> 2050 ==================== -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:860px;top:140px;width:540px;height:520px"></div>
+  <div class="sub g" style="left:56px;top:92px">Notebook 05 · Formulación del Problema Predictivo Supervisado sin Fuga de Datos</div>
+  <div class="h" style="left:56px;top:124px;font-size:43px;line-height:49px">Proyección Espacial y Matriz de Transición ($2023 \to 2050$)</div>
+
+  <!-- Izquierda: Heatmap Matriz de Transición -->
+  <div class="img" id="img8" style="left:56px;top:192px;width:670px;height:582px"></div>
+
+  <!-- Derecha: Metodología del Target y Hallazgos de la Matriz -->
+  <div class="card flow" style="position:absolute;left:750px;top:192px;width:650px;height:582px;padding:20px 26px">
+    <div style="font-size:18.5px;font-weight:700;color:#FFB8A5;margin-bottom:8px">Arquitectura de Proyección al Horizonte 2050</div>
+    <div style="height:1.5px;background:#444;margin-bottom:10px"></div>
+
+    <div class="formula-box" style="margin-bottom:10px;font-size:13.8px;padding:6px 12px">
+      $$P\big(\text{Régimen}_{2050} = k \;\big|\; \text{ICD}_{2023},\, \mathbf{x}_{2023}\big), \quad k \in \{1, 2, 3, 4\}$$
+    </div>
+
+    <ul class="bullet-list" style="gap:7.5px;margin-bottom:12px">
+      <li style="font-size:13.1px;line-height:18.5px">
+        <b>Asignación de clase destino sin <i>Data Leakage</i>:</b> Los indicadores proyectados por la ONU en 2050 (variante <i>Medium</i>) se escalan y rotan usando <b>exclusivamente los parámetros de <code>StandardScaler</code>, <code>PCA</code> y centroides <code>K-Means</code> ajustados en 2023</b>. El clasificador supervisado se entrena solo con información observada en 2023.
+      </li>
+      <li style="font-size:13.1px;line-height:18.5px">
+        <b>Expansión masiva de la Post-Transición (+74%):</b> El Régimen 3 pasa de <b>62 países en 2023 a 108 países en 2050</b>, impulsado por la graduación de <b>32 naciones de Transición Media</b> (45.7%) y <b>19 de Dinámica Migratoria</b> que moderan sus saldos netos.
+      </li>
+      <li style="font-size:13.1px;line-height:18.5px">
+        <b>Imposibilidad de saltos directos extremos:</b> <b>0 países</b> logran pasar del régimen Pre-Transicional en 2023 directamente a la Post-Transición en 2050. La maduración demográfica exige atravesar la Transición Media.
+      </li>
+      <li style="font-size:13.1px;line-height:18.5px">
+        <b>Confirmación de la Trampa Pre-Transicional:</b> De los 57 países en el Régimen 1 en el corte base, <b>22 naciones (38.6%) permanecen atrapadas en la Pre-Transición en 2050</b>, mientras que 35 logran avanzar a la etapa intermedia.
+      </li>
+    </ul>
+
+    <div class="flow kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="kpi-box" style="padding:8px 10px;text-align:center">
+        <div class="kpi-val" style="font-size:19.5px">62 → 108</div>
+        <div class="kpi-lbl">Expansión Post-Transición</div>
+      </div>
+      <div class="kpi-box" style="padding:8px 10px;text-align:center">
+        <div class="kpi-val" style="font-size:19.5px">32 países</div>
+        <div class="kpi-lbl">Graduados de Trans. Media</div>
+      </div>
+      <div class="kpi-box" style="padding:8px 10px;text-align:center">
+        <div class="kpi-val" style="font-size:19.5px">22 países</div>
+        <div class="kpi-lbl">Atrapados en Pre-Transición</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 9: BENCHMARKING ML Y EXPLICABILIDAD (ICD #1) ==================== -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:450px;top:420px;width:620px;height:420px"></div>
+  <div class="sub g" style="left:56px;top:92px">Notebook 05 · Evaluación Cruzada Estratificada (5-Fold CV) e Importancia de Variables</div>
+  <div class="h" style="left:56px;top:124px;font-size:41px;line-height:48px">Benchmarking de ML y el ICD como Predictor Líder (#1)</div>
+
+  <!-- Arriba: Imagen Triple Benchmark + Confusion Matrix OOF + Feature Importance -->
+  <div class="img" id="img9" style="left:56px;top:186px;width:1344px;height:366px"></div>
+
+  <!-- Abajo: 3 tarjetas de interpretación estadística -->
+  <div class="flow" style="position:absolute;left:56px;top:566px;width:1344px;display:grid;grid-template-columns:1fr 1.1fr 1.1fr;gap:18px;height:208px">
+    <div class="card" style="padding:15px 18px;border-radius:24px">
+      <div style="font-size:15px;font-weight:700;color:#F25A05;margin-bottom:5px">1. Robustez Inter-Algorítmica (&gt;85%)</div>
+      <p style="font-size:12.8px;line-height:18.5px;color:#e0e0e0;text-align:justify">
+        Las 5 familias evaluadas bajo 5-Fold Stratified CV superan el 85% de precisión fuera de muestra: <b>SVM RBF ($89.05\% \pm 4.25\%$)</b>, <b>Multinomial Logistic ($89.03\% \pm 2.42\%$)</b> y <b>Random Forest ($87.77\% \pm 3.61\%$)</b>, confirmando que las fronteras entre regímenes son estructurales y no artefactos de un modelo.
+      </p>
+    </div>
+
+    <div class="card" style="padding:15px 18px;border-radius:24px">
+      <div style="font-size:15px;font-weight:700;color:#FFB8A5;margin-bottom:5px">2. Validación de Constructo: ICD es el Predictor #1</div>
+      <p style="font-size:12.8px;line-height:18.5px;color:#e0e0e0;text-align:justify">
+        En el modelo campeón explicable (Random Forest), el <b>Índice de Madurez Demográfica (<code>ICD_2023</code>) lidera con 18.9% de importancia Gini</b>, superando a todos los indicadores brutos individuales: <code>TFR</code> ($15.4\%$), <code>LEx</code> ($14.9\%$), <code>MedianAgePop</code> ($13.2\%$) e <code>IMR</code> ($12.9\%$). El ICD condensa el poder predictivo de la transición.
+      </p>
+    </div>
+
+    <div class="card" style="padding:15px 18px;border-radius:24px">
+      <div style="font-size:15px;font-weight:700;color:#38BDF8;margin-bottom:5px">3. Honestidad Fuera de Muestra (Out-of-Fold CV)</div>
+      <p style="font-size:12.8px;line-height:18.5px;color:#e0e0e0;text-align:justify">
+        Cumpliendo el principio ASA D.1, se auditó la matriz de confusión con <code>cross_val_predict</code>: el recall alcanza <b>90.9%–96.9%</b> en los regímenes 1, 2 y 3, mientras que en <i>Dinámica Migratoria</i> es <b>53.5%</b> porque un <b>37.2%</b> de las economías receptoras moderan su inmigración y transitan hacia la <i>Post-Transición</i>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 10: UMBRAL CRITICO ICD = 52.0 Y CASOS AL 2050 ==================== -->
+<section class="slide" data-nav="2">
+  <div class="glow" style="left:100px;top:380px;width:540px;height:440px"></div>
+  <div class="sub g" style="left:56px;top:92px">Notebook 05 · Inferencia de Probabilidades Condicionales y Respuesta a la Pregunta Central</div>
+  <div class="h" style="left:56px;top:124px;font-size:43px;line-height:49px">El Umbral Crítico ($\text{ICD} = 52.0$): Graduados, Escapes y Trampa</div>
+
+  <!-- Izquierda: Curva Sigmoidal Umbral ICD = 52.0 -->
+  <div class="img" id="img10" style="left:56px;top:192px;width:720px;height:582px"></div>
+
+  <!-- Derecha: Los 3 grupos de países con probabilidades exactas -->
+  <div class="card flow" style="position:absolute;left:800px;top:192px;width:600px;height:582px;padding:18px 24px">
+    <div style="font-size:18px;font-weight:700;color:#FFB8A5;margin-bottom:6px">Bifurcación No Lineal en $\text{ICD} = 52.0$ Puntos</div>
+    <p style="font-size:12.8px;line-height:18px;color:#ddd;margin-bottom:10px;text-align:justify">
+      Por debajo de <b>52.0 puntos</b> en el ICD actual, ningún país en desarrollo logra dar el salto hacia la Post-Transición antes de 2050. Al superar los 52 puntos, la probabilidad condicional se dispara por encima del <b>85%–99%</b>:
+    </p>
+
+    <!-- Grupo 1: Graduados -->
+    <div class="card-soft" style="padding:10px 14px;margin-bottom:9px;border-color:#F25A05">
+      <div style="font-size:13.6px;font-weight:700;color:#FFB8A5;margin-bottom:3px">A. Graduados Exitosos a Post-Transición (Hoy en Régimen 2, $\text{ICD} > 52$)</div>
+      <div style="font-size:12.4px;line-height:17.5px;color:#eee">
+        <b>Granada ($99.1\%$, ICD $62.9$)</b> · <b>Brasil ($99.0\%$, ICD $63.2$)</b> · <b>Azerbaiyán ($98.7\%$, ICD $56.3$)</b> · <b>Turquía ($97.6\%$, ICD $64.6$)</b> · <b>Argentina ($94.4\%$, ICD $67.4$)</b> · <b>Colombia ($92.8\%$)</b> · <b>México ($91.2\%$)</b>.<br>
+        <span style="color:#ccc;font-size:11.6px">Implicación: Cierre del bono juvenil y aceleración de la demanda pensional y geriátrica hacia 2050.</span>
+      </div>
+    </div>
+
+    <!-- Grupo 2: Escape Acelerado -->
+    <div class="card-soft" style="padding:10px 14px;margin-bottom:9px;border-color:#38BDF8">
+      <div style="font-size:13.6px;font-weight:700;color:#38BDF8;margin-bottom:3px">B. Escape Transicional Acelerado ($\text{Régimen 1} \to \text{Transición Media}$)</div>
+      <div style="font-size:12.4px;line-height:17.5px;color:#eee">
+        <b>Tayikistán ($99.2\%$, ICD $32.2$)</b> · <b>Ghana ($99.2\%$, ICD $22.2$)</b> · <b>Ruanda ($99.2\%$, ICD $22.6$)</b> · <b>Botsuana ($99.2\%$, ICD $30.9$)</b> · <b>Gabón ($99.0\%$)</b> · <b>Etiopía ($98.8\%$, ICD $19.1$)</b> · <b>Kenia ($98.6\%$)</b>.<br>
+        <span style="color:#ccc;font-size:11.6px">Palanca clave: El salto hacia Transición Media depende en un 70% de abatir la mortalidad infantil ($\text{IMR} < 30\text{‰}$).</span>
+      </div>
+    </div>
+
+    <!-- Grupo 3: Trampa Pre-Transicional -->
+    <div class="card-soft" style="padding:10px 14px;border-color:#EF4444">
+      <div style="font-size:13.6px;font-weight:700;color:#FCA5A5;margin-bottom:3px">C. Trampa de Estancamiento Pre-Transicional ($P(\text{Régimen 1}) > 96\%$)</div>
+      <div style="font-size:12.4px;line-height:17.5px;color:#eee">
+        <b>Guinea ($100.0\%$, ICD $4.4$)</b> · <b>Níger ($100.0\%$, ICD $0.0$)</b> · <b>Chad ($99.9\%$, ICD $0.0$)</b> · <b>Mali ($99.0\%$)</b> · <b>Nigeria ($99.0\%$)</b> · <b>RD del Congo ($98.9\%$, ICD $0.2$)</b> · <b>Somalia ($98.6\%$)</b> · <b>Rep. Centroafricana ($97.9\%$)</b>.<br>
+        <span style="color:#ccc;font-size:11.6px">Alerta humanitaria: 22 naciones (38.6% del Régimen 1) permanecerán estancadas sin intervención estructural.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 11: ETICA ASA Y POLITICAS PUBLICAS ==================== -->
+<section class="slide" data-nav="3">
+  <div class="glow" style="left:320px;top:60px;width:620px;height:480px"></div>
+  <div class="sub g" style="left:56px;top:92px">Documento 06 · Best Consideration of Ethics &amp; Recomendaciones de Política Pública</div>
+  <div class="h" style="left:56px;top:124px;font-size:43px;line-height:49px">Marco Ético ASA, Limitaciones y Gobernanza Demográfica</div>
+
+  <!-- Columna Izquierda: Checklist ASA + Limitaciones -->
+  <div class="card flow" style="position:absolute;left:56px;top:192px;width:660px;height:582px;padding:20px 24px">
+    <div style="font-size:18px;font-weight:700;color:#FFB8A5;margin-bottom:8px">Auditoría Formal: ASA Ethical Guidelines (10 Principios)</div>
+    <div style="height:1.5px;background:#444;margin-bottom:10px"></div>
+
+    <table class="tbl" style="font-size:12px;margin-bottom:12px">
+      <thead>
+        <tr>
+          <th style="width:28%">Principio ASA</th>
+          <th>Evidencia Verificable en el Pipeline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>A &amp; B.1 Integridad y Aptitud</b></td>
+          <td>Filtro <code>LocTypeID == 4</code>, auditoría de 42 dependencias, exclusión matemática de <code>DoublingTime</code> y <code>StandardScaler</code> para evitar dominancia de <code>CNMR</code>.</td>
+        </tr>
+        <tr>
+          <td><b>B.2 &amp; B.3 Supuestos y Fases</b></td>
+          <td>Separación estricta entre datos censales ($\le 2023$) y modelos ONU ($\ge 2024$) vía <code>IsEstimate</code>; separación entre EDA (02–04) e inferencia predictiva (05).</td>
+        </tr>
+        <tr>
+          <td><b>B.7 &amp; D.4 Grupos y Outliers</b></td>
+          <td>Rechazo de agregados continentales monolíticos; Winsorización $P_{2.5}\text{–}P_{97.5}$ para que microestados o choques bélicos no deformen la escala global.</td>
+        </tr>
+        <tr>
+          <td><b>C.3 &amp; D.1 Comunicación Honesta</b></td>
+          <td>Evaluación fuera de muestra (<code>cross_val_predict</code>), reportando transparentemente el menor recall en <i>Dinámica Migratoria</i> ($53.5\%$) por volatilidad geopolítica.</td>
+        </tr>
+        <tr>
+          <td><b>E.1 &amp; F.4 Impacto y Reproducibilidad</b></td>
+          <td>Mitigación de sesgos de etiquetado, código modular reproducible (<code>SEED = 28/42</code>) y 17 decisiones documentadas en <code>decision_log.md</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="font-size:14.5px;font-weight:700;color:#F25A05;margin-bottom:5px">Matriz de Limitaciones Técnicas Documentadas:</div>
+    <ul class="bullet-list" style="gap:5px">
+      <li style="font-size:12.5px;line-height:17.5px"><b>Subregistro civil en zonas de conflicto:</b> Mayor incertidumbre en tasas brutas del Sahel (mitigado por calibración bayesiana DHS/MICS de la ONU).</li>
+      <li style="font-size:12.5px;line-height:17.5px"><b>Condicionalidad del Target 2050:</b> El modelo predice la convergencia bajo la variante <i>Medium</i> del WPP 2024, no un destino inmutable ajeno a choques climáticos o políticos.</li>
+    </ul>
+  </div>
+
+  <!-- Columna Derecha: Los 3 Dilemas Éticos y Políticas por Régimen -->
+  <div class="card flow" style="position:absolute;left:740px;top:192px;width:660px;height:582px;padding:20px 24px">
+    <div style="font-size:18px;font-weight:700;color:#FFB8A5;margin-bottom:8px">Dilemas Éticos y Hoja de Ruta por Régimen Demográfico</div>
+    <div style="height:1.5px;background:#444;margin-bottom:10px"></div>
+
+    <div class="card-soft" style="padding:11px 15px;margin-bottom:10px">
+      <div style="font-size:14px;font-weight:700;color:#EF4444;margin-bottom:3px">1. Contra el Fatalismo en la "Trampa Pre-Transicional" (Régimen 1)</div>
+      <p style="font-size:12.5px;line-height:17.5px;color:#e0e0e0;text-align:justify">
+        Un riesgo $>98\%$ de estancamiento en Níger, Chad o RDC <b>no es un rasgo cultural ni determinismo biológico</b>; mide el déficit en agua potable, saneamiento, escolarización secundaria femenina y salud reproductiva. <b>Política:</b> Usar el ICD como alerta temprana para focalizar cooperación internacional en reducir la <code>IMR</code> bajo $30\text{‰}$.
+      </p>
+    </div>
+
+    <div class="card-soft" style="padding:11px 15px;margin-bottom:10px">
+      <div style="font-size:14px;font-weight:700;color:#F59E0B;margin-bottom:3px">2. Ventana del Bono Demográfico en Países Graduados (Régimen 2 → 3)</div>
+      <p style="font-size:12.5px;line-height:17.5px;color:#e0e0e0;text-align:justify">
+        Brasil, Colombia, México, Argentina y Turquía ingresarán a la Post-Transición antes de 2050. <b>Política:</b> Formalización laboral juvenil urgente e inversión en salud geriátrica y reforma pensional sostenible antes del cierre de su ventana demográfica.
+      </p>
+    </div>
+
+    <div class="card-soft" style="padding:11px 15px;margin-bottom:10px">
+      <div style="font-size:14px;font-weight:700;color:#F25A05;margin-bottom:3px">3. Desmitificación del "Invierno Demográfico" (Régimen 3)</div>
+      <p style="font-size:12.5px;line-height:17.5px;color:#e0e0e0;text-align:justify">
+        La fecundidad sub-reemplazo ($\text{TFR} < 1.5$) es resultado del avance educativo y la autonomía reproductiva femenina. Se rechazan políticas natalistas coercitivas en favor de <b>sistemas nacionales de cuidados, conciliación parental y longevidad productiva</b>.
+      </p>
+    </div>
+
+    <div class="card-soft" style="padding:11px 15px">
+      <div style="font-size:14px;font-weight:700;color:#38BDF8;margin-bottom:3px">4. Movilidad Humana con Enfoque de Derechos (Régimen 4)</div>
+      <p style="font-size:12.5px;line-height:17.5px;color:#e0e0e0;text-align:justify">
+        Las personas migrantes son sujetos integrales de derechos humanos, no meras "unidades actuariales de reemplazo" para financiar pirámides envejecidas. Exige homologación laboral e integración humanitaria.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 12: CONCLUSIONES Y EXPLORACION INTERACTIVA ==================== -->
+<section class="slide" data-nav="3">
+  <div class="glow" style="left:900px;top:-100px;width:600px;height:540px"></div>
+  <div class="glow" style="left:-140px;top:420px;width:540px;height:480px"></div>
+  <div class="card" style="left:56px;top:102px;width:1344px;height:672px;background:linear-gradient(135deg,#202020,#0d0d0d)"></div>
+
+  <div class="sub g" style="left:100px;top:136px">Síntesis Ejecutiva y Veredicto Científico · ASA DataQuest 2026</div>
+  <div class="h" style="left:100px;top:168px;font-size:48px;line-height:54px">Conclusiones y <span class="g">Veredicto Estadístico</span></div>
+
+  <!-- Tabla de Evidencia Consolidada -->
+  <div class="flow" style="position:absolute;left:100px;top:242px;width:1256px">
+    <table class="tbl" style="font-size:13px">
+      <thead>
+        <tr>
+          <th style="width:22%">Dimensión Analítica</th>
+          <th style="width:24%">Metodología Implementada</th>
+          <th style="width:36%">Hallazgo Empírico Cuantitativo</th>
+          <th style="width:18%">Veredicto Científico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>1. Índice Compuesto (ICD)</b></td>
+          <td>PCA sobre correlaciones + Winsorización $P_{2.5}\text{–}P_{97.5}$ (OCDE/JRC)</td>
+          <td>PC1 (56.7%) + PC2 (23.4%) capturan el <b>80.1% de varianza</b> de 7 pilares sin distorsión por microestados (Mediana global $= 60.2$).</td>
+          <td><span class="pill" style="font-size:10.5px">MÉTRICA CARDINAL ROBUSTA</span></td>
+        </tr>
+        <tr>
+          <td><b>2. $\sigma$-Convergencia Global</b></td>
+          <td>Evolución anual del Coeficiente de Variación $\text{CV}_t$ (1950–2023)</td>
+          <td>Solo <code>LEx</code> converge ($\beta = -0.00168, p < 0.001$); <code>TFR</code> (+65% en CV), <code>IMR</code> y <code>MedianAgePop</code> divergen significativamente.</td>
+          <td><span class="pill" style="font-size:10.5px">CONVERGENCIA REFUTADA</span></td>
+        </tr>
+        <tr>
+          <td><b>3. Poder Predictivo del ICD</b></td>
+          <td>Benchmarking 5 clasificadores (5-Fold CV) + Importancia Gini</td>
+          <td>Accuracy de <b>89.1% (SVM)</b>, <b>89.0% (Logit)</b> y <b>87.8% (RF)</b>. El <b>ICD es el predictor #1 (18.9% Gini)</b> sobre todas las variables crudas.</td>
+          <td><span class="pill" style="font-size:10.5px">VALIDACIÓN DE CONSTRUCTO</span></td>
+        </tr>
+        <tr>
+          <td><b>4. Bifurcación al 2050</b></td>
+          <td>Inferencia de probabilidades condicionales $P(\text{Régimen}_{2050} \mid \mathbf{x}_{2023})$</td>
+          <td>Discontinuidad en <b>$\text{ICD} = 52.0$</b>: 32 países de Transición Media se gradúan a Post-Transición y 22 quedan atrapados en Pre-Transición ($P > 98\%$).</td>
+          <td><span class="pill" style="font-size:10.5px">SISTEMA POR UMBRALES</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pie de cierre: Créditos + Botón Interactivo -->
+  <div class="flow" style="position:absolute;left:100px;top:548px;width:720px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="#F25A05"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      <span style="font-size:17.5px;font-weight:600">ASA DataQuest 2026 — World Population Prospects 2024</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="#FFB8A5"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+      <span style="font-size:17.5px">Pregrado en Estadística · Universidad Nacional de Colombia, Sede Medellín</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      <span style="font-size:17.5px;color:#ccc">github.com/yguzmanm-sys/ASA-DataQuest</span>
+    </div>
+  </div>
+
+  <button class="btn" id="btn-interactive" style="left:876px;top:586px;width:480px"><span>GRÁFICO INTERACTIVO (60 FPS)</span><i></i></button>
+</section>
+
+</div></div>
+<div class="hint">Flechas &larr; &rarr; o Espacio para navegar (12 diapositivas)</div>
+
+<script>
+const stage=document.getElementById('stage');
+const slides=[...document.querySelectorAll('.slide')];
+const chevron='<svg width="24" height="40" viewBox="0 0 30 52" fill="none" stroke="#F25A05" stroke-width="3.5"><path d="M4 3l22 23L4 49"/></svg>';
+const labels=['INICIO','PROBLEMA','ANÁLISIS Y ML','ÉTICA Y CIERRE'];
+const pos=[[680,105],[800,130],[945,155],[1115,155]];
+const target=[0,1,2,10];
+let cur=0;
+
+slides.forEach((s,idx)=>{
+  const a=+s.dataset.nav;
+  let nav='<div class="logo-bar"></div><div class="logo">ASA DATAQUEST<br>2026 · WPP 2024</div>';
+  labels.forEach((t,i)=>{
+    nav+=`<a class="nav${i===a?' act':''}" data-go="${target[i]}" style="left:${pos[i][0]}px;width:${pos[i][1]}px">${t}</a>`;
+  });
+  nav+=`<div class="slide-counter">${idx+1} / ${slides.length}</div>`;
+  s.insertAdjacentHTML('afterbegin',nav);
+  s.querySelectorAll('.btn i').forEach(i=>i.innerHTML=chevron);
+});
+
+function renderMathInActiveSlide(slideEl){
+  if(window.renderMathInElement && slideEl){
+    renderMathInElement(slideEl, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ],
+      throwOnError: false
+    });
+  }
+}
+
+function show(n){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('on',i===cur));
+  renderMathInActiveSlide(slides[cur]);
+  location.hash='#'+(cur+1);
+}
+function fit(){
+  const k=Math.min(innerWidth/1456,innerHeight/819);
+  stage.style.transform='scale('+k+')';
+}
+addEventListener('resize',fit);
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(cur+1);}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(cur-1);}
+  if(e.key==='Home')show(0);
+  if(e.key==='End')show(slides.length-1);
+});
+document.addEventListener('click',e=>{
+  const nv=e.target.closest('[data-go]');
+  if(nv){show(+nv.dataset.go);return;}
+  if(e.target.closest('.next'))show(cur+1);
+});
+
+const btnInteractive = document.getElementById('btn-interactive');
+if(btnInteractive){
+  btnInteractive.addEventListener('click',()=>{
+    window.open('outputs/figures/final/01_tfr_vs_lex_animated.html','_blank');
+  });
+}
+
+function setImg(id,url){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.style.backgroundImage='url("'+url+'")';
+  el.classList.add('has');
+}
+
+/* Carga de las figuras generadas con la estética oscura/naranja de la presentación */
+setImg('img3','outputs/figures/eda/03_scatter_tfr_vs_lex_epochs.png');
+setImg('img4','outputs/figures/eda/02_kde_epochs.png');
+setImg('img5','outputs/figures/eda/03_correlation_matrix_spearman.png');
+setImg('img6','outputs/figures/eda/04_pca_scree_loadings.png');
+setImg('img7','outputs/figures/eda/04_cluster_regimes.png');
+setImg('img8','outputs/figures/final/05_empirical_transition_matrix.png');
+setImg('img9','outputs/figures/final/05_diagnostics_and_feature_importance.png');
+setImg('img10','outputs/figures/final/05_critical_icd_threshold.png');
+
+window.addEventListener('load', ()=>{
+  fit();
+  show((parseInt(location.hash.slice(1))||1)-1);
+});
+fit();
+show((parseInt(location.hash.slice(1))||1)-1);
+</script>
+</body>
+</html>
