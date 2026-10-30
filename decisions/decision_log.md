@@ -158,6 +158,20 @@
     - Clustering jerarquico aglomerativo: Mas costoso computacionalmente y propenso a encadenamiento en fronteras difusas.
     - DBSCAN: Trata las zonas de transicion continua como ruido estocastico.
 
+### Notebook 05 / Statistical Insight -- Modelo Predictivo Supervisado de Transicion de Regimen al 2050
+
+- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
+- **Contexto**: Para evitar que el Indice Compuesto Demografico (ICD) quedara restringido a un rol descriptivo estatico, se requeria una herramienta analitica capaz de anticipar la trayectoria demografica futura y responder si los paises en desarrollo lograran cruzar hacia la post-transicion o si quedaran estancados en trampas pre-transicionales.
+- **Decision**: Entrenar un modelo de Machine Learning supervisado (Random Forest y Regresion Logistica Multinomial regularizada) para estimar la probabilidad condicional de destino hacia 2050: (\\text{Regimen}_{2050} = k \\mid \\text{ICD}_{2023}, \\mathbf{x}_{2023})$.
+- **Justificacion**: 
+    1. *Capacidad predictiva demostrada*: Alcanza un Accuracy de 87.8% (Random Forest) y 89.0% (Logistic Regression) en validacion cruzada estratificada de 5 pliegues.
+    2. *Validacion del ICD como predictor lider*: El ICD emerge como la caracteristica mas importante del modelo (18.9% de importancia Gini), superando a todos los indicadores individuales aislados.
+    3. *Identificacion de umbral critico*: Revela un umbral de salto cuantitativo en $\\text{ICD} = 52.0$ puntos, por encima del cual la probabilidad de alcanzar la post-transicion supera el 85%, mientras que por debajo de 52 puntos la probabilidad es virtualmente nula.
+    4. *Deteccion de trampa estructural*: Identifica que el 38.6% de los paises pre-transicionales (liderados por Niger, Chad, RDC y Somalia) tienen un riesgo de estancamiento superior al 98% hacia 2050.
+- **Alternativas descartadas**:
+    - Modelos exclusivamente parametricos de regresion lineal: Descartados por no capturar no-linealidades e interacciones de umbral en la transicion.
+    - Proyecciones ingenuas basadas en extrapolacion univariada: Ignoran la covariacion conjunta de los pilares de salud, fecundidad y migracion.
+
 ### Notebook 05 / Statistical Insight -- Evaluacion morfologica de trayectorias con DTW bivariado
 
 - **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
