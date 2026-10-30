@@ -172,29 +172,16 @@
     - Modelos exclusivamente parametricos de regresion lineal: Descartados por no capturar no-linealidades e interacciones de umbral en la transicion.
     - Proyecciones ingenuas basadas en extrapolacion univariada: Ignoran la covariacion conjunta de los pilares de salud, fecundidad y migracion.
 
-### Notebook 05 / Statistical Insight -- Evaluacion morfologica de trayectorias con DTW bivariado
+### Notebook 05 / Statistical Insight -- Benchmarking de 5 familias algoritmicas y Curaduria de Features
 
 - **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
-- **Contexto**: Evaluar si todos los paises recorren la misma trayectoria en el espacio de fase $(TFR, LEx)$ requiere comparar series temporales sin penalizar desfasajes cronologicos.
-- **Decision**: Implementar Dynamic Time Warping (DTW) bivariado sobre trayectorias quinquenales normalizadas en escala $[0, 1]$, seguido de clustering jerarquico con metodo `complete linkage`.
-- **Justificacion**: DTW mide la disimilaridad morfologica independientemente del anio de inicio de la transicion. El muestreo quinquenal reduce el costo computacional de 500s a 24s para las 27,966 parejas sin perder fidelidad analitica. Complete linkage evita el efecto de encadenamiento espurio (*chaining*) propio de single linkage.
-- **Alternativas descartadas**: Distancia euclidiana directa (penaliza calendarios distintos como si fueran trayectorias distintas); correlacion cruzada simple (asume retardos lineales uniformes).
-
-### Notebook 05 / Statistical Insight -- Deteccion de quiebres estructurales por regresion segmentada
-
-- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
-- **Contexto**: Determinar si las transiciones son suaves o estan pautadas por perturbaciones no lineales y aceleraciones exogenas.
-- **Decision**: Implementar regresion lineal segmentada en dos tramos (metodologia Chow / Bai-Perron con barrido exhaustivo de puntos de corte con segmento minimo $h=8$) para identificar el anio de maxima reduccion de varianza residual en $TFR$ y $LEx$.
-- **Justificacion**: Permite datar formalmente las discontinuidades macroestructurales (reformas de politicas de poblacion, shocks epidemicos, guerras o colapsos geopoliticos) con fundamento estadistico basado en el estadistico $F$.
-- **Alternativas descartadas**: CUSUM recursivo generico sin fechado puntual optimo; deteccion puramente heuristica o visual.
-
-### Notebook 05 / Statistical Insight -- Experimento contrafactual de compensacion migratoria
-
-- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb)
-- **Contexto**: Cuantificar si la migracion internacional compensa el envejecimiento poblacional en las economias avanzadas receptoras.
-- **Decision**: Comparar la variante oficial `Zero migration` (fronteras netas neutras) con la variante `Medium` a los horizontes 2050 y 2100 para evaluar la variacion neta en edad mediana ($\Delta \text{MedianAge}$) y tamano de poblacion.
-- **Justificacion**: Utiliza un contrafactual oficial estandarizado de Naciones Unidas que aisla exclusivamente el componente migratorio manteniendo constantes los supuestos de fertilidad y mortalidad.
-- **Alternativas descartadas**: Regresion ecologica cross-section entre migracion y edad promedio (sujeta a confusion endogena y causalidad reversa); modelos ad-hoc sin base de proyeccion WPP.
+- **Contexto**: Seleccionar una unica arquitectura de Machine Learning sin contraste previo puede introducir sesgos de especificacion o sobreajuste ante desbalances entre etapas demograficas.
+- **Decision**: Ejecutar un benchmarking exhaustivo de 5 familias algoritmicas bajo validacion cruzada estratificada de 5 pliegues (5-Fold CV): Multinomial Logistic Regression (L2), Support Vector Machine (RBF Kernel), Random Forest Classifier, Hist Gradient Boosting y K-Nearest Neighbors.
+- **Justificacion**: 
+    1. *Rigor comparativo*: Evalua simultaneamente modelos lineales parametricos, ensambles de bagging/boosting, clasificadores de margen maximo y basados en vecindad euclidiana.
+    2. *Consistencia del rendimiento*: Los 5 modelos superan el 85% de accuracy (SVM 89.1%, Multinomial Logistic 89.0%, Random Forest 87.8%), lo que corrobora la solidez y separabilidad estructural del espacio de features.
+    3. *Seleccion del ensamble explicable*: Se adopta Random Forest para la explicabilidad y generacion de probabilidades condicionales, aprovechando que el ICD es seleccionado como la caracteristica #1 con un 18.9% de importancia Gini.
+- **Alternativas descartadas**: Redes neuronales multicapa (opacas e innecesariamente complejas para n=237); modelos no regularizados (propensos a sobreajuste en clases minoritarias).
 
 ### Notebook 06 / Visualizaciones Finales -- Sistema grafico bajo principios de Tufte y accesibilidad
 
