@@ -183,23 +183,23 @@
     3. *Seleccion del ensamble explicable*: Se adopta Random Forest para la explicabilidad y generacion de probabilidades condicionales, aprovechando que el ICD es seleccionado como la caracteristica #1 con un 18.9% de importancia Gini.
 - **Alternativas descartadas**: Redes neuronales multicapa (opacas e innecesariamente complejas para n=237); modelos no regularizados (propensos a sobreajuste en clases minoritarias).
 
-### Notebook 05 hacia 07 -- Consolidacion de narrativa y eliminacion de Notebook 06 intermedio
+### Notebook 05 hacia Documento 06 -- Consolidacion de narrativa y adopcion de reporte Markdown
 
-- **Notebook**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb) y [07_ethics_and_report.ipynb](../notebooks/07_ethics_and_report.ipynb)
+- **Documento**: [05_statistical_insight.ipynb](../notebooks/05_statistical_insight.ipynb) y [06_ethics_and_report.md](../notebooks/06_ethics_and_report.md)
 - **Contexto**: Mantener una fase intermedia aislada de visualizaciones desconectada del modelo predictivo fragmentaba el storytelling entre la inferencia cuantitativa y las implicaciones etico-politicas.
-- **Decision**: Integrar las visualizaciones de diagnostico directamente dentro de los notebooks analiticos correspondientes (02 a 05) y articular de forma directa el desenlace predictivo del Notebook 05 con la sintesis etica y reporte ejecutivo en el Notebook 07, eliminando el notebook 06 como etapa independiente.
-- **Justificacion**: Preserva la coherencia metodologica integral, evita redundancias y alinea la discusion de politicas publicas y directrices ASA directamente con los resultados del modelado supervisado de transicion al 2050.
+- **Decision**: Integrar las visualizaciones de diagnostico directamente dentro de los notebooks analiticos correspondientes (02 a 05) y articular de forma directa el desenlace predictivo del Notebook 05 con la sintesis etica y reporte ejecutivo en el documento consolidado `06_ethics_and_report.md`, eliminando cuadernos redundantes.
+- **Justificacion**: Preserva la coherencia metodologica integral, evita redundancias y alinea la discusion de politicas publicas y directrices ASA directamente con los resultados del modelado supervisado de transicion al 2050 en un formato de lectura y auditoria ejecutiva directa.
 - **Alternativas descartadas**: Conservar un notebook de graficos aislados sin conexion analitica con el modelo de machine learning.
 
-### Notebook 07 / Etica y Reporte Final -- Marco etico ASA, auditoria de limitaciones y reporte ejecutivo
+### Documento 06 / Etica y Reporte Final -- Marco etico ASA, auditoria de limitaciones y reporte ejecutivo
 
-- **Notebook**: [07_ethics_and_report.ipynb](../notebooks/07_ethics_and_report.ipynb)
+- **Documento**: [06_ethics_and_report.md](../notebooks/06_ethics_and_report.md)
 - **Contexto**: El modelado de transiciones de regimen y la clasificacion de naciones conllevan severos riesgos de determinismo tecnologico, fatalismo sobre paises en rezago, instrumentalizacion de la migracion y alarmismo demografico.
 - **Decision**: 
     1. Auditar formalmente los 10 principios de las *ASA Ethical Guidelines for Statistical Practice*, documentando evidencias verificables en cada fase del pipeline.
     2. Explicitar la matriz de limitaciones tecnicas (registro civil, dependencia del escenario medio ONU, volatilidad migratoria y truncamiento del ICD).
     3. Abordar los dilemas eticos del dominio demografico: evitar la estigmatizacion de la trampa pre-transicional, desmitificar el "invierno demografico" protegiendo derechos reproductivos y exigir un enfoque de derechos en la movilidad humana.
-    4. Compilar programaticamente el reporte ejecutivo final en `outputs/reports/final_demographic_report.md`.
+    4. Compilar de forma ejecutiva y auditable las tablas maestras de benchmark, matrices de transicion y casos emblemáticos para consulta directa de los evaluadores.
 - **Justificacion**: Garantiza la responsabilidad social de la practica estadistica, previene usos lesivos de las predicciones algoritmicas y ofrece una sintesis de alto impacto para evaluacion y toma de decisiones publicas.
 - **Alternativas descartadas**: Tratamiento puramente actuarial desprovisto de evaluacion etica; reporte de metricas de entrenamiento in-sample ignorando el error de generalizacion.
 
