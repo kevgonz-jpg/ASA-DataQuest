@@ -152,7 +152,7 @@
     2. *Transicion Media*: Fecundidad en descenso, reduccion drastica de mortalidad infantil (mediana ICD = 49.40).
     3. *Post-Transicion*: Fecundidad sub-reemplazo, longevidad avanzada y envejecimiento poblacional (mediana ICD = 80.00).
     4. *Dinamica Migratoria*: Economias avanzadas receptoras con fuerte inmigracion neta (`CNMR` mediana = +9.77) que alteran su ritmo de envejecimiento (mediana ICD = 85.78).
-- **Justificacion**: $K=4$ resuelve la heterogeneidad analitica necesaria para contrastar hipotesis causales sin sobredimensionar la complejidad del modelo, reteniendo un coeficiente de silueta solido (0.347) y evitando el sesgo de agregacion de $K=2$.
+- **Justificacion**: $K=4$ resuelve la heterogeneidad analitica necesaria para contrastar hipotesis causales sin sobredimensionar la complejidad del modelo, reteniendo un coeficiente de silueta solido (0.388) y evitando el sesgo de agregacion de $K=2$.
 - **Alternativas descartadas**:
     - $K=2$ (maximo de silueta): Descartado por ser analiticamente esteril (polarizacion simplista sin valor explicativo de fases intermedias).
     - Clustering jerarquico aglomerativo: Mas costoso computacionalmente y propenso a encadenamiento en fronteras difusas.
